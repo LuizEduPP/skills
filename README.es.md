@@ -1,5 +1,7 @@
 # AI Skills Collection
 
+![AI Skills Collection](cover-skill.png)
+
 > 🌐 Idiomas: [English](README.md) | **Español** | [Português (BR)](README.pt-BR.md)
 
 Una colección de skills portátiles para IA - templates, guías y automatizaciones que funcionan con cualquier asistente de IA.
