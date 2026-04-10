@@ -1,5 +1,7 @@
 # AI Skills Collection
 
+> 🌐 Languages: **English** | [Português (BR)](README.pt-BR.md) | [Español](README.es.md)
+
 A curated collection of portable AI skills - templates, guides, and automations that work with any AI assistant.
 
 ## What Are Skills
@@ -54,7 +56,9 @@ skills/
 
 ## Available Skills
 
-### Development
+<details>
+<summary><strong>Development</strong> — 13 skills</summary>
+
 | Skill | Description |
 |-------|-------------|
 | `code-reviewer` | Automated code analysis (PRs, quality checks) |
@@ -71,7 +75,11 @@ skills/
 | `sql-optimization-patterns` | SQL query optimization strategies |
 | `subagent-driven-development` | Implementation with subagents |
 
-### Architecture & Design
+</details>
+
+<details>
+<summary><strong>Architecture & Design</strong> — 5 skills</summary>
+
 | Skill | Description |
 |-------|-------------|
 | `architecture-diagrams` | Architecture diagrams (Mermaid, PlantUML) |
@@ -80,7 +88,11 @@ skills/
 | `design-create` | Design document creation |
 | `senior-frontend` | Frontend development (React, Next.js, TypeScript) |
 
-### Documents & Presentations
+</details>
+
+<details>
+<summary><strong>Documents & Presentations</strong> — 7 skills</summary>
+
 | Skill | Description |
 |-------|-------------|
 | `docx` | Word document creation and editing |
@@ -91,7 +103,11 @@ skills/
 | `markitdown` | Convert files to Markdown |
 | `obsidian-markdown` | Obsidian Flavored Markdown |
 
-### Frontend & UI
+</details>
+
+<details>
+<summary><strong>Frontend & UI</strong> — 7 skills</summary>
+
 | Skill | Description |
 |-------|-------------|
 | `frontend-design` | Web interface design |
@@ -102,7 +118,11 @@ skills/
 | `react-native-expert` | React Native development |
 | `applying-brand-guidelines` | Corporate branding and styling |
 
-### Data & Analytics
+</details>
+
+<details>
+<summary><strong>Data & Analytics</strong> — 4 skills</summary>
+
 | Skill | Description |
 |-------|-------------|
 | `data-analysis` | Data analysis and visualization |
@@ -110,7 +130,11 @@ skills/
 | `creating-financial-models` | Financial modeling (DCF, Monte Carlo) |
 | `rag-implementation` | RAG systems with vector databases |
 
-### DevOps & Tools
+</details>
+
+<details>
+<summary><strong>DevOps & Tools</strong> — 6 skills</summary>
+
 | Skill | Description |
 |-------|-------------|
 | `git-advanced-workflows` | Advanced Git workflows |
@@ -120,7 +144,11 @@ skills/
 | `file-organizer` | File and folder organization |
 | `mcp-builder` | MCP server construction |
 
-### Planning & Management
+</details>
+
+<details>
+<summary><strong>Planning & Management</strong> — 6 skills</summary>
+
 | Skill | Description |
 |-------|-------------|
 | `planning-with-files` | File-based planning |
@@ -130,32 +158,50 @@ skills/
 | `req-create` | Requirements documentation |
 | `experience-record` | Experience and lessons learned recording |
 
-### Content & Copywriting
+</details>
+
+<details>
+<summary><strong>Content & Copywriting</strong> — 3 skills</summary>
+
 | Skill | Description |
 |-------|-------------|
 | `copywriter` | Compelling copy for web and marketing |
 | `brainstorming` | Structured brainstorming sessions |
 | `deep-research` | Deep multi-source research |
 
-### Career & Professional
+</details>
+
+<details>
+<summary><strong>Career & Professional</strong> — 2 skills</summary>
+
 | Skill | Description |
 |-------|-------------|
 | `resume-manager` | Resume creation and career tracking |
 | `scientific-critical-thinking` | Scientific claims evaluation |
 
-### Memory & Systems
+</details>
+
+<details>
+<summary><strong>Memory & Systems</strong> — 2 skills</summary>
+
 | Skill | Description |
 |-------|-------------|
 | `memory-systems` | Agent memory systems |
 | `context-optimization` | Context optimization for LLMs |
 
-### Skill Management
+</details>
+
+<details>
+<summary><strong>Skill Management</strong> — 4 skills</summary>
+
 | Skill | Description |
 |-------|-------------|
 | `skill-creator` | Creating effective skills |
 | `skill-lookup` | Find and install skills |
 | `skill-writer` | Writing Agent Skills |
 | `skills-discovery` | Search and install Agent Skills |
+
+</details>
 
 ## How to Use
 
