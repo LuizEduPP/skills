@@ -71,7 +71,7 @@ def convert_with_ai(
     input_file: Path,
     output_file: Path,
     api_key: str,
-    model: str = "anthropic/claude-opus-4.5",
+    model: str = "anthropic/claude-opus-4-5",
     prompt_type: str = "general",
     custom_prompt: str = None
 ) -> bool:
@@ -82,7 +82,7 @@ def convert_with_ai(
         input_file: Path to input file
         output_file: Path to output Markdown file
         api_key: OpenRouter API key
-        model: Model name (default: anthropic/claude-opus-4.5)
+        model: Model name via OpenRouter (default: anthropic/claude-opus-4-5)
         prompt_type: Type of prompt to use
         custom_prompt: Custom prompt (overrides prompt_type)
         
@@ -154,10 +154,10 @@ Examples:
   python convert_with_ai.py paper.pdf output.md --prompt-type scientific
   
   # Convert a presentation with custom model
-  python convert_with_ai.py slides.pptx slides.md --model anthropic/claude-opus-4.5 --prompt-type presentation
+  python convert_with_ai.py slides.pptx slides.md --model anthropic/claude-opus-4-5 --prompt-type presentation
   
-  # Use custom prompt with advanced vision model
-  python convert_with_ai.py diagram.png diagram.md --model anthropic/claude-opus-4.5 --custom-prompt "Describe this technical diagram"
+  # Use custom prompt with any vision-capable model
+  python convert_with_ai.py diagram.png diagram.md --model openai/gpt-4o --custom-prompt "Describe this technical diagram"
   
   # Set API key via environment variable
   export OPENROUTER_API_KEY="sk-or-v1-..."
@@ -167,8 +167,9 @@ Environment Variables:
   OPENROUTER_API_KEY    OpenRouter API key (required if not passed via --api-key)
 
 Popular Models (use with --model):
-  anthropic/claude-opus-4.5 - Recommended for scientific vision
-  google/gemini-3-pro-preview   - Gemini Pro Vision
+  anthropic/claude-opus-4-5  - Strong vision model (Anthropic)
+  openai/gpt-4o              - Strong vision model (OpenAI)
+  google/gemini-2-flash      - Fast vision model (Google)
         """
     )
     
@@ -180,8 +181,8 @@ Popular Models (use with --model):
     )
     parser.add_argument(
         '--model', '-m',
-        default='anthropic/claude-opus-4.5',
-        help='Model to use via OpenRouter (default: anthropic/claude-opus-4.5)'
+        default='anthropic/claude-opus-4-5',
+        help='Model to use via OpenRouter (default: anthropic/claude-opus-4-5; any vision-capable model works)'
     )
     parser.add_argument(
         '--prompt-type', '-t',

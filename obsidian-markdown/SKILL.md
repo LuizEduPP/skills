@@ -6,7 +6,7 @@ description: Create and edit Obsidian Flavored Markdown with wikilinks, embeds, 
 
 # Obsidian Flavored Markdown
 
-This skill enables Claude Code to create and edit valid Obsidian Flavored Markdown including wikilinks, embeds, callouts, properties, and all related syntax.
+This skill enables AI coding assistants to create and edit valid Obsidian Flavored Markdown including wikilinks, embeds, callouts, properties, and all related syntax.
 
 ## When to Use This Skill
 

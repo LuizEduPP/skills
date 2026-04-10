@@ -6,7 +6,7 @@ Expert in writing compelling copy for web, marketing, and product.
 
 ```bash
 # Activate skill
-claude-code --skill copywriter
+Use skill copywriter for [task]
 ```
 
 ## What This Skill Does

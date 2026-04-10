@@ -1,6 +1,6 @@
 ---
 name: skill-creator
-description: Guide for creating effective skills. Use when creating a new skill or updating an existing skill that extends Claude's capabilities with specialized knowledge, workflows, or tool integrations.
+description: Guide for creating effective skills. Use when creating a new skill or updating an existing skill that extends AI capabilities with specialized knowledge, workflows, or tool integrations.
 ---
 
 # Skill Creator
@@ -10,7 +10,7 @@ Create modular, self-contained packages that extend AI capabilities with special
 ## Core Principles
 
 ### Concise is Key
-Challenge each piece: "Does Claude really need this?" Prefer concise examples over verbose explanations.
+Challenge each piece: "Does the AI really need this?" Prefer concise examples over verbose explanations.
 
 ### Progressive Disclosure
 1. **Metadata** (~100 words) - Always loaded

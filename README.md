@@ -16,7 +16,7 @@ Skills are **portable knowledge modules** that work wherever you use them:
 
 - ✅ Any AI assistant that can read markdown files
 - ✅ Claude Code, Claude Desktop, Claude Web
-- ✅ Copilot Chat, Cursor, Windsurf
+- ✅ Copilot Chat, Cursor, Windsurf, Gemini CLI
 - ✅ Even manual reference - just read the SKILL.md files
 
 The `SKILL.md` format is plain markdown with frontmatter - usable anywhere.
@@ -161,7 +161,7 @@ skills/
 
 ### Loading a Skill
 
-In Claude Code, skills are automatically loaded based on task description. You can also explicitly mention:
+In AI assistants like Claude Code, Windsurf, and Cursor, skills are automatically loaded based on task description. You can also explicitly mention:
 
 ```
 Use skill [skill-name] for [task]

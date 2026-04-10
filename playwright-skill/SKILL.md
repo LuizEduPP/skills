@@ -416,7 +416,7 @@ Add wait: `await page.waitForSelector('.element', { timeout: 10000 })`
 ```
 User: "Test if the marketing page looks good"
 
-Claude: I'll test the marketing page across multiple viewports. Let me first detect running servers...
+AI: I'll test the marketing page across multiple viewports. Let me first detect running servers...
 [Runs: detectDevServers()]
 [Output: Found server on port 3001]
 I found your dev server running on http://localhost:3001
@@ -429,7 +429,7 @@ I found your dev server running on http://localhost:3001
 ```
 User: "Check if login redirects correctly"
 
-Claude: I'll test the login flow. First, let me check for running servers...
+AI: I'll test the login flow. First, let me check for running servers...
 [Runs: detectDevServers()]
 [Output: Found servers on ports 3000 and 3001]
 I found 2 dev servers. Which one should I test?

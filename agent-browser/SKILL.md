@@ -807,7 +807,7 @@ The dashboard has an optional AI chat tab powered by the Vercel AI Gateway. Enab
 
 ```bash
 export AI_GATEWAY_API_KEY=gw_your_key_here
-export AI_GATEWAY_MODEL=anthropic/claude-sonnet-4.6           # optional default
+export AI_GATEWAY_MODEL=anthropic/claude-sonnet-4-5           # optional default (any OpenRouter-compatible model)
 export AI_GATEWAY_URL=https://ai-gateway.vercel.sh           # optional default
 ```
 

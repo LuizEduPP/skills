@@ -341,7 +341,7 @@ Based on typical PPT creation, here are the **top 10 most common checklist failu
 
 **Presentation**: [Title]
 **Date**: [YYYY-MM-DD]
-**Checked by**: Claude
+**Checked by**: AI Assistant
 **Status**: [PASS / FAIL]
 
 **Issues Found**: [Number]

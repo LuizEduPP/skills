@@ -9,7 +9,7 @@ This skill provides a systematic approach to conducting thorough research on any
 
 ## Purpose
 
-Enable Claude to perform comprehensive research by:
+Enable the AI to perform comprehensive research by:
 1. Breaking down complex topics into researchable components
 2. Using multiple information sources (web search, documentation, academic sources)
 3. Applying critical thinking to synthesize findings

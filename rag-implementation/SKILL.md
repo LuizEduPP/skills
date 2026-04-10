@@ -39,7 +39,7 @@ Master Retrieval-Augmented Generation (RAG) to build LLM applications that provi
 **Models (2026):**
 | Model | Dimensions | Best For |
 |-------|------------|----------|
-| **voyage-3-large** | 1024 | Claude apps (Anthropic recommended) |
+| **voyage-3-large** | 1024 | Anthropic/general apps (Anthropic recommended) |
 | **voyage-code-3** | 1024 | Code search |
 | **text-embedding-3-large** | 3072 | OpenAI apps, high accuracy |
 | **text-embedding-3-small** | 1536 | OpenAI apps, cost-effective |
@@ -85,7 +85,7 @@ class RAGState(TypedDict):
     answer: str
 
 # Initialize components
-llm = ChatAnthropic(model="claude-sonnet-4-6")
+llm = ChatAnthropic(model="claude-sonnet-4-6")  # or ChatOpenAI, ChatGoogleGenerativeAI, etc.
 embeddings = VoyageAIEmbeddings(model="voyage-3-large")
 vectorstore = PineconeVectorStore(index_name="docs", embedding=embeddings)
 retriever = vectorstore.as_retriever(search_kwargs={"k": 4})

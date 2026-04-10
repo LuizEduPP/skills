@@ -57,4 +57,4 @@ Match complexity to vision:
 - **Maximalist** → Elaborate code, extensive animations
 - **Minimalist** → Restraint, precision, typography focus
 
-Remember: Claude is capable of extraordinary creative work. Commit fully to a distinctive vision.
+Remember: AI is capable of extraordinary creative work. Commit fully to a distinctive vision.

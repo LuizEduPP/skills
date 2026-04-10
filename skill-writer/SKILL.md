@@ -1,11 +1,11 @@
 ---
 name: skill-writer
-description: Guide users through creating Agent Skills for Claude Code. Use when the user wants to create, write, author, or design a new Skill, or needs help with SKILL.md files, frontmatter, or skill structure.
+description: Guide users through creating Agent Skills for AI assistants. Use when the user wants to create, write, author, or design a new Skill, or needs help with SKILL.md files, frontmatter, or skill structure.
 ---
 
 # Skill Writer
 
-This Skill helps you create well-structured Agent Skills for Claude Code that follow best practices and validation requirements.
+This Skill helps you create well-structured Agent Skills for AI assistants that follow best practices and validation requirements.
 
 ## When to use this Skill
 
@@ -24,7 +24,7 @@ First, understand what the Skill should do:
 
 1. **Ask clarifying questions**:
    - What specific capability should this Skill provide?
-   - When should Claude use this Skill?
+   - When should the AI use this Skill?
    - What tools or resources does it need?
    - Is this for personal use or team sharing?
 
@@ -109,7 +109,7 @@ description: Brief description of what this does and when to use it
 
 ### Step 5: Write effective descriptions
 
-The description is critical for Claude to discover your Skill.
+The description is critical for the AI to discover your Skill.
 
 **Formula**: `[What it does] + [When to use it] + [Key triggers]`
 
@@ -152,7 +152,7 @@ Provide a simple example to get started immediately.
 
 ## Instructions
 
-Step-by-step guidance for Claude:
+Step-by-step guidance for the AI:
 1. First step with clear action
 2. Second step with expected outcome
 3. Handle edge cases
@@ -214,7 +214,7 @@ Check these requirements:
 - [ ] `description` is specific and < 1024 chars
 
 ✅ **Content quality**:
-- [ ] Clear instructions for Claude
+- [ ] Clear instructions for the AI
 - [ ] Concrete examples provided
 - [ ] Edge cases handled
 - [ ] Dependencies listed (if any)
@@ -226,20 +226,20 @@ Check these requirements:
 
 ### Step 9: Test the Skill
 
-1. **Restart Claude Code** (if running) to load the Skill
+1. **Restart your AI assistant** (if running) to load the Skill
 
 2. **Ask relevant questions** that match the description:
    ```
    Can you help me extract text from this PDF?
    ```
 
-3. **Verify activation**: Claude should use the Skill automatically
+3. **Verify activation**: The AI should use the Skill automatically
 
-4. **Check behavior**: Confirm Claude follows the instructions correctly
+4. **Check behavior**: Confirm the AI follows the instructions correctly
 
 ### Step 10: Debug if needed
 
-If Claude doesn't use the Skill:
+If the AI doesn't use the Skill:
 
 1. **Make description more specific**:
    - Add trigger words
@@ -323,7 +323,7 @@ Detailed reference: See [reference.md](reference.md)
 
 1. **One Skill, one purpose**: Don't create mega-Skills
 2. **Specific descriptions**: Include trigger words users will say
-3. **Clear instructions**: Write for Claude, not humans
+3. **Clear instructions**: Write for the AI, not humans
 4. **Concrete examples**: Show real code, not pseudocode
 5. **List dependencies**: Mention required packages in description
 6. **Test with teammates**: Verify activation and clarity
@@ -343,7 +343,7 @@ Before finalizing a Skill, verify:
 - [ ] Dependencies are documented
 - [ ] File paths use forward slashes
 - [ ] Skill activates on relevant queries
-- [ ] Claude follows instructions correctly
+- [ ] AI follows instructions correctly
 
 ## Troubleshooting
 

@@ -7,7 +7,7 @@ description: This skill should be used whenever users need help with resume crea
 
 ## Overview
 
-This skill transforms Claude into a comprehensive resume management system that maintains a structured database of your professional profile and generates tailored, professionally styled PDF resumes for specific job applications. The skill intelligently selects and highlights the most relevant experiences, projects, and skills based on the target role.
+This skill transforms the AI assistant into a comprehensive resume management system that maintains a structured database of your professional profile and generates tailored, professionally styled PDF resumes for specific job applications. The skill intelligently selects and highlights the most relevant experiences, projects, and skills based on the target role.
 
 ## When to Use This Skill
 
@@ -468,7 +468,7 @@ When generating resumes, provide these optimization tips:
 ```
 User: "Help me create a resume for job applications"
 
-Claude: [Checks database - finds not initialized]
+AI: [Checks database - finds not initialized]
 
 To help you create tailored resumes, I need to build a database of your professional
 profile. Please provide your existing resume in one of these ways:
@@ -479,7 +479,7 @@ profile. Please provide your existing resume in one of these ways:
 
 [User provides resume]
 
-Claude: [Extracts data and initializes database]
+AI: [Extracts data and initializes database]
 
 Perfect! I've extracted and saved your professional profile:
 • Personal Information: ✓
@@ -497,14 +497,14 @@ generate a customized one-page PDF resume.
 ```
 User: "I need a resume for a Senior Backend Engineer position at a fintech startup"
 
-Claude: [Database initialized]
+AI: [Database initialized]
 
 Great! To create the perfect resume for this Senior Backend Engineer role, can you
 share the job description or tell me about the key requirements?
 
 User: [Shares job description mentioning Python, AWS, microservices, PostgreSQL, etc.]
 
-Claude: [Extracts keywords: python, aws, microservices, postgresql, fintech, api]
+AI: [Extracts keywords: python, aws, microservices, postgresql, fintech, api]
 
 [Generates PDF using relevant experiences and projects]
 
@@ -525,7 +525,7 @@ like me to adjust anything?
 ```
 User: "I just completed a major project - built a real-time analytics system processing 1M events per minute using Kafka"
 
-Claude: [Loads resume data]
+AI: [Loads resume data]
 
 Excellent achievement! Let me add this to your profile. A few questions:
 
@@ -535,7 +535,7 @@ Excellent achievement! Let me add this to your profile. A few questions:
 
 User: "Add it to my current role. Used Kafka, Redis, Python, and TimescaleDB. Reduced report generation time from hours to seconds."
 
-Claude: [Updates experience]
+AI: [Updates experience]
 
 ✓ Updated your current role with this achievement:
 
@@ -549,7 +549,7 @@ data, Kafka, or analytics experience.
 ```
 User: "I'm applying to both backend and full-stack positions. Can you create resumes for both?"
 
-Claude: Sure! Let's create two targeted versions.
+AI: Sure! Let's create two targeted versions.
 
 [Generates backend-focused resume emphasizing API development, microservices, databases]
 ✓ Backend Engineer Resume: Emphasizes your Python/Go backend work, API design, and infrastructure scaling
@@ -569,7 +569,7 @@ Which one would you like to review first?
 ```
 User: "Can you review my resume data and suggest improvements?"
 
-Claude: [Analyzes resume database]
+AI: [Analyzes resume database]
 
 I've reviewed your profile. Here are my recommendations:
 

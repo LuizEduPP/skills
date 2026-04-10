@@ -5,7 +5,7 @@ description: Search for and install Agent Skills that give you specialized capab
 
 # Skills Discovery
 
-You can extend your capabilities by discovering and installing Agent Skills from the claude-plugins.dev registry. Skills provide specialized knowledge, tools, and techniques for specific technologies, frameworks, and domains.
+You can extend your capabilities by discovering and installing Agent Skills from the claude-plugins.dev registry. Skills provide specialized knowledge, tools, and techniques for specific technologies, frameworks, and domains. Skills work across multiple AI assistants (Claude Code, Windsurf, Cursor, Codex, and more).
 
 ## When to search for skills
 
