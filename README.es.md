@@ -249,4 +249,4 @@ Este proyecto está licenciado bajo la Licencia MIT — consulta el archivo [LIC
 
 ---
 
-**Total de Skills: 59** | Contribuciones de la comunidad bienvenidas | Actualizado: Abril 2026
+**Total de Skills: 59** | Inventario verificado contra los directorios del repositorio | Contribuciones de la comunidad bienvenidas | Actualizado: Mayo 2026
