@@ -12,7 +12,7 @@ When you need more than one browser at a time:
 
 Each `--session NAME` gets:
 - Its own daemon process
-- Its own Unix socket (`~/.browser-use/{name}.sock`)
+- Its own Unix socket (`<user-runtime-dir>/browser-use/{name}.sock`)
 - Its own PID file and state file
 - Its own browser instance (completely independent)
 - Its own tab ownership state (multi-agent locks don't cross sessions)
@@ -70,7 +70,7 @@ browser-use close --all                     # close every session
 **Cloud + local authenticated:**
 ```bash
 browser-use --session scraper cloud connect
-browser-use --session scraper open https://example.com
+browser-use --session scraper open <page-url>
 # ... scrape data ...
 
 browser-use --session auth --profile "Default" open https://github.com

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Monitor console messages
- * Usage: node console.js --url https://example.com [--types error,warn] [--duration 5000]
+ * Usage: node console.js --url <page-url> [--types error,warn] [--duration 5000]
  */
 import { getBrowser, getPage, closeBrowser, parseArgs, outputJSON, outputError } from './lib/browser.js';
 

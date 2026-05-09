@@ -86,7 +86,7 @@ class Counter {
 const user = {
   id: 1,
   name: "John Doe",
-  email: "john@example.com",
+  email: "user@domain.test",
   address: {
     city: "New York",
     country: "USA",
@@ -252,7 +252,7 @@ const calculator = {
 const field = "email";
 const user = {
   name: "John",
-  [field]: "john@example.com",
+  [field]: "user@domain.test",
   [`get${field.charAt(0).toUpperCase()}${field.slice(1)}`]() {
     return this[field];
   },
@@ -269,7 +269,7 @@ const createUser = (name, ...props) => {
   );
 };
 
-const user = createUser("John", ["age", 30], ["email", "john@example.com"]);
+const user = createUser("John", ["age", 30], ["email", "user@domain.test"]);
 ```
 
 ## Asynchronous Patterns

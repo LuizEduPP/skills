@@ -46,7 +46,7 @@ The official MCP Python SDK provides FastMCP, a high-level framework for buildin
 
 Python MCP servers must follow this naming pattern:
 - **Format**: `{service}_mcp` (lowercase with underscores)
-- **Examples**: `github_mcp`, `jira_mcp`, `stripe_mcp`
+- **Examples**: `source_control_mcp`, `issue_tracker_mcp`, `payments_mcp`
 
 The name should be:
 - General (not tied to specific features)
@@ -288,7 +288,7 @@ async def search_users(params: UserSearchInput) -> str:
 
     Args:
         params (UserSearchInput): Validated input parameters containing:
-            - query (str): Search string to match against names/emails (e.g., "john", "@example.com", "team:marketing")
+            - query (str): Search string to match against names/emails (e.g., "jane", "@domain.test", "team:marketing")
             - limit (Optional[int]): Maximum results to return, between 1-100 (default: 20)
             - offset (Optional[int]): Number of results to skip for pagination (default: 0)
 
@@ -304,7 +304,7 @@ async def search_users(params: UserSearchInput) -> str:
                 {
                     "id": str,      # User ID (e.g., "U123456789")
                     "name": str,    # Full name (e.g., "John Doe")
-                    "email": str,   # Email address (e.g., "john@example.com")
+                    "email": str,   # Email address (e.g., "user@domain.test")
                     "team": str     # Team name (e.g., "Marketing") - optional
                 }
             ]
@@ -350,7 +350,7 @@ from mcp.server.fastmcp import FastMCP
 mcp = FastMCP("example_mcp")
 
 # Constants
-API_BASE_URL = "https://api.example.com/v1"
+API_BASE_URL = "<api-base-url>/v1"
 
 # Enums
 class ResponseFormat(str, Enum):
@@ -569,7 +569,7 @@ class UserData(TypedDict):
 @mcp.tool()
 async def get_user_typed(user_id: str) -> UserData:
     '''Returns structured data - FastMCP handles serialization.'''
-    return {"id": user_id, "name": "John Doe", "email": "john@example.com"}
+    return {"id": user_id, "name": "Jane Doe", "email": "user@domain.test"}
 
 # Pydantic models for complex validation
 class DetailedUser(BaseModel):

@@ -182,7 +182,7 @@ const processUser = pipe(
 
 const user = processUser({
   name: "  John  ",
-  email: "JOHN@EXAMPLE.COM",
+  email: "USER@DOMAIN.TEST",
   age: "30",
 });
 ```
@@ -225,7 +225,7 @@ const user = { name: "John", age: 30 };
 const olderUser = { ...user, age: 31 };
 
 // Add property
-const withEmail = { ...user, email: "john@example.com" };
+const withEmail = { ...user, email: "user@domain.test" };
 
 // Remove property
 const { age, ...withoutAge } = user;

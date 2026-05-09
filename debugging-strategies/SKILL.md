@@ -7,7 +7,11 @@ description: Master systematic debugging techniques, profiling tools, and root c
 
 Transform debugging from frustrating guesswork into systematic problem-solving with proven strategies, powerful tools, and methodical approaches.
 
-## When to Use This Skill
+## Overview
+
+Use this skill as a broad debugging reference when you need practical techniques, tools, and investigation patterns across languages and stacks.
+
+## When to Use
 
 - Tracking down elusive bugs
 - Investigating performance issues
@@ -184,7 +188,7 @@ performance.measure("operation", "start-operation", "end-operation");
 console.log(performance.getEntriesByType("measure"));
 ```
 
-**VS Code Debugger Configuration:**
+**IDE Debugger Configuration Example:**
 
 ```json
 // .vscode/launch.json

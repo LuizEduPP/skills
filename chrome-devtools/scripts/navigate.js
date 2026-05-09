@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Navigate to a URL
- * Usage: node navigate.js --url https://example.com [--wait-until networkidle2] [--timeout 30000]
+ * Usage: node navigate.js --url <page-url> [--wait-until networkidle2] [--timeout 30000]
  */
 import { getBrowser, getPage, closeBrowser, parseArgs, outputJSON, outputError } from './lib/browser.js';
 

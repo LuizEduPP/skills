@@ -251,7 +251,7 @@ new Paragraph({ pageBreakBefore: true, children: [new TextRun("New page")] })
 new Paragraph({
   children: [new ExternalHyperlink({
     children: [new TextRun({ text: "Click here", style: "Hyperlink" })],
-    link: "https://example.com",
+    link: "<external-url>",
   })]
 })
 

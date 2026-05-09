@@ -67,9 +67,9 @@ Advise them not to worry about organizing it - just get it all out. Offer multip
 - Point to team channels or threads to read
 - Link to shared documents
 
-**If integrations are available** (e.g., Slack, Teams, Google Drive, SharePoint, or other MCP servers), mention that these can be used to pull in context directly.
+**If integrations are available** (e.g., chat systems, document repositories, issue trackers, or other MCP servers), mention that these can be used to pull in context directly.
 
-**If no integrations are detected:** Suggest they enable connectors in their AI assistant settings (if available) to pull context from messaging apps and document storage directly, or paste the relevant content manually.
+**If no integrations are detected:** Ask for exported source material in machine-readable form such as markdown, text, JSON, or copied thread content, then proceed from that local input.
 
 Inform them clarifying questions will be asked once they've done their initial dump.
 
@@ -77,7 +77,7 @@ Inform them clarifying questions will be asked once they've done their initial d
 
 - If user mentions team channels or shared documents:
   - If integrations available: Inform them the content will be read now, then use the appropriate integration
-  - If integrations not available: Explain lack of access. Suggest they enable connectors in their AI settings (if available), or paste the relevant content directly.
+  - If integrations not available: Explain lack of access and ask for exported or pasted content in a format the current environment can process directly.
 
 - If user mentions entities/projects that are unknown:
   - Ask if connected tools should be searched to learn more
@@ -248,7 +248,7 @@ Explain that testing will now occur to see if the document actually works for re
 
 ### Testing Approach
 
-**If access to sub-agents is available (e.g., in Claude Code, Windsurf, Cursor, etc.):**
+**If access to sub-agents is available in the current host environment:**
 
 Perform the testing directly without user involvement.
 
@@ -287,9 +287,9 @@ Loop back to refinement for problematic sections.
 
 ---
 
-**If no access to sub-agents (e.g., web chat interface):**
+**If no access to sub-agents:**
 
-The user will need to do the testing manually.
+Run a self-contained simulation in the current session instead of handing testing back to the user.
 
 ### Step 1: Predict Reader Questions
 
@@ -297,12 +297,12 @@ Ask what questions people might ask when trying to discover this document.
 
 Generate 5-10 questions that readers would realistically ask.
 
-### Step 2: Setup Testing
+### Step 2: Run Testing Simulation
 
-Provide testing instructions:
-1. Open a fresh AI conversation (e.g., https://claude.ai or any other AI chat)
-2. Paste or share the document content (if using a shared doc platform with connectors enabled, provide the link)
-3. Ask the Reader AI the generated questions
+Use a fresh evaluation rubric inside the current session:
+1. Restate the document's target audience and job-to-be-done
+2. Answer the generated reader questions using only the document content
+3. Flag any answer that is missing, ambiguous, or too hard to find
 
 For each question, instruct the Reader AI to provide:
 - The answer

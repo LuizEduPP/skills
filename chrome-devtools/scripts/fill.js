@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 /**
  * Fill form fields
- * Usage: node fill.js --selector "#input" --value "text" [--url https://example.com]
+ * Usage: node fill.js --selector "#input" --value "text" [--url <page-url>]
  * Supports both CSS and XPath selectors:
- *   - CSS: node fill.js --selector "#email" --value "user@example.com"
- *   - XPath: node fill.js --selector "//input[@type='email']" --value "user@example.com"
+ *   - CSS: node fill.js --selector "#email" --value "user@domain.test"
+ *   - XPath: node fill.js --selector "//input[@type='email']" --value "user@domain.test"
  */
 import { getBrowser, getPage, closeBrowser, parseArgs, outputJSON, outputError } from './lib/browser.js';
 import { parseSelector, waitForElement, typeIntoElement, enhanceError } from './lib/selector.js';

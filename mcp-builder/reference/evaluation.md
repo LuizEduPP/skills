@@ -453,7 +453,7 @@ For SSE-based MCP servers (you must start the server first):
 ```bash
 python scripts/evaluation.py \
   -t sse \
-  -u https://example.com/mcp \
+   -u <mcp-server-url> \
   -H "Authorization: Bearer token123" \
   -H "X-Custom-Header: value" \
   evaluation.xml
@@ -466,7 +466,7 @@ For HTTP-based MCP servers (you must start the server first):
 ```bash
 python scripts/evaluation.py \
   -t http \
-  -u https://example.com/mcp \
+   -u <mcp-server-url> \
   -H "Authorization: Bearer token123" \
   evaluation.xml
 ```
@@ -485,7 +485,7 @@ positional arguments:
 optional arguments:
   -h, --help            Show help message
   -t, --transport       Transport type: stdio, sse, or http (default: stdio)
-  -m, --model           AI model to use (default: claude-3-7-sonnet-20250219)
+   -m, --model           AI model to use (defaults to ANTHROPIC_MODEL when set)
   -o, --output          Output file for report (default: print to stdout)
 
 stdio options:
@@ -555,6 +555,7 @@ Here's a complete example of creating and running an evaluation:
 ```bash
 pip install -r scripts/requirements.txt
 export ANTHROPIC_API_KEY=your_api_key
+export ANTHROPIC_MODEL=<anthropic-model-id>
 ```
 
 3. **Run evaluation**:
@@ -596,7 +597,7 @@ If many evaluations fail:
 ### Timeout Issues
 
 If tasks are timing out:
-- Use a more capable model (e.g., `claude-3-7-sonnet-20250219`, `openai/gpt-4o`)
+- Use a more capable model configured through `--model` or `ANTHROPIC_MODEL`
 - Check if tools are returning too much data
 - Verify pagination is working correctly
 - Consider simplifying complex questions

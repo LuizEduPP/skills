@@ -2,8 +2,16 @@
 // From: Lace test infrastructure improvements (2025-10-03)
 // Context: Fixed 15 flaky tests by replacing arbitrary timeouts
 
-import type { ThreadManager } from '~/threads/thread-manager';
-import type { LaceEvent, LaceEventType } from '~/threads/types';
+type LaceEventType = string;
+
+interface LaceEvent {
+  type: LaceEventType;
+  data?: unknown;
+}
+
+interface ThreadManager {
+  getEvents(threadId: string): LaceEvent[];
+}
 
 /**
  * Wait for a specific event type to appear in thread

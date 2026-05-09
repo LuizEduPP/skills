@@ -5,7 +5,7 @@ description: Guide for creating effective skills. Use when creating a new skill 
 
 # Skill Creator
 
-Create modular, self-contained packages that extend AI capabilities with specialized knowledge and workflows.
+Create modular, self-contained packages that extend AI capabilities with specialized knowledge and workflows across different hosts.
 
 ## Core Principles
 
@@ -53,6 +53,15 @@ description: What it does AND when to use it (critical for triggering)
 | Concise examples | Verbose explanations |
 | Reference files for details | Everything in SKILL.md |
 | Test scripts by running them | Assume they work |
+| Use host-agnostic paths and wording | Hard-code one assistant's directory layout |
+
+## Portability Rules
+
+- Write the skill in English unless a translated artifact is explicitly required
+- Keep the main workflow independent from any single IDE, editor, CLI, or chat app
+- Use placeholders such as `<skill-root>`, `<workspace>`, and `<output-dir>` in examples
+- Put vendor-specific notes in a short compatibility section instead of the core flow
+- Mention a specific assistant only when the skill itself is about that assistant
 
 ## What NOT to Include
 - README.md, CHANGELOG.md, INSTALLATION.md

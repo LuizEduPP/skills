@@ -300,11 +300,11 @@ Delete the other 2 copies?
 
 ### Example 3: Restructuring Projects Folder
 
-**User**: "Review my ~/Projects directory and suggest improvements."
+**User**: "Review my projects directory and suggest improvements."
 
 **Output**:
 ```markdown
-# Analysis of ~/Projects
+# Analysis of <workspace>/Projects
 
 ## Current Structure Issues
 - Mix of active and archived projects (3+ years old)

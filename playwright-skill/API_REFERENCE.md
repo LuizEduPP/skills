@@ -36,7 +36,7 @@ Before using this skill, ensure Playwright is available:
 npm list playwright 2>/dev/null || echo "Playwright not installed"
 
 # Install (if needed)
-cd ~/.claude/skills/playwright-skill
+cd <skill-root>/playwright-skill
 npm run setup
 ```
 
@@ -55,7 +55,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
   use: {
-    baseURL: 'http://localhost:3000',
+    baseURL: process.env.APP_BASE_URL || 'http://127.0.0.1:3000',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
@@ -68,7 +68,7 @@ export default defineConfig({
   ],
   webServer: {
     command: 'npm run start',
-    url: 'http://localhost:3000',
+    url: process.env.APP_BASE_URL || 'http://127.0.0.1:3000',
     reuseExistingServer: !process.env.CI,
   },
 });
@@ -96,7 +96,7 @@ const { chromium } = require('playwright');
   const page = await context.newPage();
 
   // Navigate
-  await page.goto('https://example.com', {
+  await page.goto(process.env.APP_BASE_URL || '<app-url>', {
     waitUntil: 'networkidle'  // Wait for network to be idle
   });
 
@@ -141,7 +141,7 @@ await page.locator('[data-cy="user-input"]').fill('text');
 
 // GOOD: Role-based selectors (accessible)
 await page.getByRole('button', { name: 'Submit' }).click();
-await page.getByRole('textbox', { name: 'Email' }).fill('user@example.com');
+await page.getByRole('textbox', { name: 'Email' }).fill('user@domain.test');
 await page.getByRole('heading', { level: 1 }).click();
 
 // GOOD: Text content (for unique text)
@@ -150,7 +150,7 @@ await page.getByText(/welcome back/i).click();
 
 // OK: Semantic HTML
 await page.locator('button[type="submit"]').click();
-await page.locator('input[name="email"]').fill('test@test.com');
+await page.locator('input[name="email"]').fill('user@domain.test');
 
 // AVOID: Classes and IDs (can change frequently)
 await page.locator('.btn-primary').click();  // Avoid
@@ -185,7 +185,7 @@ await row.locator('button.edit').click();
 
 ```javascript
 // Text input
-await page.getByLabel('Email').fill('user@example.com');
+await page.getByLabel('Email').fill('user@domain.test');
 await page.getByPlaceholder('Enter your name').fill('John Doe');
 
 // Clear and type
@@ -307,7 +307,7 @@ import { expect } from '@playwright/test';
 
 // Page assertions
 await expect(page).toHaveTitle('My App');
-await expect(page).toHaveURL('https://example.com/dashboard');
+await expect(page).toHaveURL(/.*\/dashboard/);
 await expect(page).toHaveURL(/.*dashboard/);
 
 // Element visibility
@@ -322,7 +322,7 @@ await expect(page.locator('.message')).toContainText('success');
 await expect(page.locator('.items')).toHaveText(['Item 1', 'Item 2']);
 
 // Input values
-await expect(page.locator('input')).toHaveValue('test@example.com');
+await expect(page.locator('input')).toHaveValue('user@domain.test');
 await expect(page.locator('input')).toBeEmpty();
 
 // Attributes
@@ -373,7 +373,7 @@ class LoginPage {
 test('login with valid credentials', async ({ page }) => {
   const loginPage = new LoginPage(page);
   await loginPage.navigate();
-  await loginPage.login('user@example.com', 'password123');
+  await loginPage.login('user@domain.test', process.env.TEST_PASSWORD ?? '<secret>');
   await expect(page).toHaveURL('/dashboard');
 });
 ```
@@ -497,7 +497,7 @@ page.on('pageerror', error => console.log('Page error:', error));
 ```javascript
 // Measure page load time
 const startTime = Date.now();
-await page.goto('https://example.com');
+await page.goto(process.env.APP_BASE_URL || '<app-url>');
 const loadTime = Date.now() - startTime;
 console.log(`Page loaded in ${loadTime}ms`);
 ```
@@ -640,7 +640,7 @@ npx playwright test --headed
 npx playwright test --debug
 
 # Generate code
-npx playwright codegen https://example.com
+npx playwright codegen <app-url>
 
 # Show report
 npx playwright show-report

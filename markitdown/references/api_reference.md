@@ -23,7 +23,7 @@ md = MarkItDown(
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
 | `llm_client` | OpenAI client | `None` | OpenAI-compatible client for AI image descriptions |
-| `llm_model` | str | `None` | Model name (e.g., "openai/gpt-4o", "anthropic/claude-opus-4-5", "google/gemini-2-flash") for image descriptions |
+| `llm_model` | str | `None` | Vision-capable model identifier supported by your gateway for image descriptions |
 | `llm_prompt` | str | `None` | Custom prompt for image description |
 | `docintel_endpoint` | str | `None` | Azure Document Intelligence endpoint |
 | `enable_plugins` | bool | `False` | Enable 3rd-party plugins |
@@ -235,7 +235,7 @@ client = OpenAI(
 # Create MarkItDown with AI support
 md = MarkItDown(
     llm_client=client,
-    llm_model="anthropic/claude-opus-4-5",  # or openai/gpt-4o, google/gemini-2-flash
+    llm_model="your-vision-model",
     llm_prompt="Describe this image in detail for scientific documentation"
 )
 
@@ -245,12 +245,9 @@ result = md.convert("presentation.pptx")
 
 ### Available Models via OpenRouter
 
-Popular models with vision support:
-- `anthropic/claude-opus-4-5` - Strong vision model (Anthropic)
-- `openai/gpt-4o` - Strong vision model (OpenAI)
-- `google/gemini-2-flash` - Fast vision model (Google)
+Pick any vision-capable model ID supported by your gateway.
 
-See https://openrouter.ai/models for the complete list.
+See your gateway provider documentation for the complete model list.
 
 ### Custom Prompts
 
@@ -267,7 +264,7 @@ Be precise and technical.
 
 md = MarkItDown(
     llm_client=client,
-    llm_model="anthropic/claude-opus-4-5",  # or openai/gpt-4o, google/gemini-2-flash
+    llm_model="your-vision-model",
     llm_prompt=scientific_prompt
 )
 ```

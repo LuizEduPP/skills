@@ -122,7 +122,7 @@ from resume_db import initialize_from_data
 resume_data = {
     "personal_info": {
         "name": "Full Name",
-        "email": "email@example.com",
+        "email": "user@domain.test",
         "phone": "+1 (555) 123-4567",
         "location": "City, State",
         "linkedin": "linkedin.com/in/username",
@@ -255,7 +255,7 @@ job_keywords = [
 job_title = "Senior Backend Engineer"
 
 # Output path
-output_path = f"~/Downloads/{job_title.replace(' ', '_')}_Resume.pdf"
+output_path = f"./output/{job_title.replace(' ', '_')}_Resume.pdf"
 
 # Generate resume
 generate_resume(
@@ -508,7 +508,7 @@ AI: [Extracts keywords: python, aws, microservices, postgresql, fintech, api]
 
 [Generates PDF using relevant experiences and projects]
 
-I've created your tailored resume: ~/Downloads/Senior_Backend_Engineer_Resume.pdf
+I've created your tailored resume: ./output/Senior_Backend_Engineer_Resume.pdf
 
 The resume highlights:
 ✓ Your 5 years of backend experience with Python and microservices
@@ -602,7 +602,7 @@ Would you like me to help update any of these areas?
 ## Technical Notes
 
 **Data Storage:**
-- Location: `~/.claude/resume_data.json`
+- Location: `<user-data-dir>/resume_data.json`
 - Format: Structured JSON
 - Backup: Use `python3 scripts/resume_db.py export`
 
@@ -661,7 +661,7 @@ python3 scripts/pdf_generator.py output.pdf --keywords python aws kubernetes doc
   "initialized": true,
   "personal_info": {
     "name": "Your Name",
-    "email": "email@example.com",
+    "email": "user@domain.test",
     "phone": "+1 (555) 123-4567",
     "location": "City, State",
     "linkedin": "linkedin.com/in/username",

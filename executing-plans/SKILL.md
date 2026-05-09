@@ -9,11 +9,15 @@ description: Use when you have a written implementation plan to execute in a sep
 
 Load plan, review critically, execute all tasks, report when complete.
 
+## When to Use
+
+Use this skill when you already have a written implementation plan and want to execute it in a separate session with explicit review checkpoints.
+
 **Announce at start:** "I'm using the executing-plans skill to implement this plan."
 
-**Note:** Tell your human partner that Superpowers works much better with access to subagents. The quality of its work will be significantly higher if run on a platform with subagent support (such as Claude Code, Codex, Windsurf, or Cursor). If subagents are available, use superpowers:subagent-driven-development instead of this skill.
+**Note:** This workflow is stronger in environments with subagents or isolated-task support. If the current host has a more advanced subagent-based execution workflow, prefer that option over this linear fallback.
 
-## The Process
+## Workflow
 
 ### Step 1: Load and Review Plan
 1. Read plan file
@@ -32,9 +36,9 @@ For each task:
 ### Step 3: Complete Development
 
 After all tasks complete and verified:
-- Announce: "I'm using the finishing-a-development-branch skill to complete this work."
-- **REQUIRED SUB-SKILL:** Use superpowers:finishing-a-development-branch
-- Follow that skill to verify tests, present options, execute choice
+- Announce that you are moving into final verification and handoff
+- Run the project's normal finish workflow: tests, validation, summary, and delivery options
+- If the current host provides a dedicated finishing workflow, use it
 
 ## When to Stop and Ask for Help
 
@@ -64,7 +68,7 @@ After all tasks complete and verified:
 
 ## Integration
 
-**Required workflow skills:**
-- **superpowers:using-git-worktrees** - REQUIRED: Set up isolated workspace before starting
-- **superpowers:writing-plans** - Creates the plan this skill executes
-- **superpowers:finishing-a-development-branch** - Complete development after all tasks
+**Related workflow skills or processes:**
+- An isolated workspace workflow, if your host or team uses one
+- A planning workflow that creates the written plan this skill executes
+- A finishing workflow for tests, validation, and handoff

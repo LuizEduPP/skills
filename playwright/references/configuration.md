@@ -111,7 +111,7 @@ projects: [
   },
 
   // Different base URLs
-  { name: 'staging', use: { baseURL: 'https://staging.example.com' } },
+  { name: 'staging', use: { baseURL: '<staging-url>' } },
 ],
 ```
 
@@ -254,7 +254,7 @@ test('env test', async () => {
 
 Use `.env` file with `dotenv` or pass via CLI:
 ```bash
-BASE_URL=https://staging.example.com npx playwright test
+BASE_URL=<staging-url> npx playwright test
 ```
 
 ## Global Setup/Teardown

@@ -163,7 +163,7 @@ module.exports = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'cdn.example.com',
+        hostname: '<asset-host>',
         pathname: '/images/**',
       },
       {
@@ -371,18 +371,18 @@ async function Header() {
 
 ```tsx
 // Cache indefinitely (default for static)
-fetch('https://api.example.com/data');
+fetch('<api-base-url>/data');
 
 // No cache - always fresh
-fetch('https://api.example.com/data', { cache: 'no-store' });
+fetch('<api-base-url>/data', { cache: 'no-store' });
 
 // Revalidate after time
-fetch('https://api.example.com/data', {
+fetch('<api-base-url>/data', {
   next: { revalidate: 3600 } // 1 hour
 });
 
 // Tag-based revalidation
-fetch('https://api.example.com/products', {
+fetch('<api-base-url>/products', {
   next: { tags: ['products'] }
 });
 
@@ -607,13 +607,13 @@ export default function Layout({ children }) {
 
         {/* Load analytics after page is interactive */}
         <Script
-          src="https://analytics.example.com/script.js"
+          src="<analytics-script-url>"
           strategy="afterInteractive"
         />
 
         {/* Load chat widget when idle */}
         <Script
-          src="https://chat.example.com/widget.js"
+          src="<chat-widget-url>"
           strategy="lazyOnload"
         />
       </body>
@@ -703,7 +703,7 @@ export function PerformanceMonitor() {
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    remotePatterns: [{ hostname: 'cdn.example.com' }],
+    remotePatterns: [{ hostname: '<asset-host>' }],
     formats: ['image/avif', 'image/webp'],
   },
   experimental: {

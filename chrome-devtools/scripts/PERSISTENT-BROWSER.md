@@ -11,7 +11,7 @@ These scripts enable you to launch Chrome once and keep it open for multiple com
 node launch-persistent.js --headless=false
 
 # Launch with initial URL
-node launch-persistent.js --headless=false --url=https://example.com/login
+node launch-persistent.js --headless=false --url=<login-url>
 
 # Launch headless
 node launch-persistent.js
@@ -25,7 +25,7 @@ All existing scripts will automatically connect to the persistent browser:
 
 ```bash
 # Navigate to a page
-node navigate.js --url https://example.com/dashboard
+node navigate.js --url <dashboard-url>
 
 # Take a screenshot
 node screenshot.js --output ./screenshot.png
@@ -37,7 +37,7 @@ node evaluate.js --script "document.title"
 node snapshot.js
 
 # Fill forms
-node fill.js --selector "#username" --value "user@example.com"
+node fill.js --selector "#username" --value "user@domain.test"
 node click.js --selector "button[type=submit]"
 ```
 
@@ -61,12 +61,12 @@ node close-persistent.js
 ### Authenticated Sessions
 ```bash
 # Launch browser
-node launch-persistent.js --headless=false --url=https://app.example.com/login
+node launch-persistent.js --headless=false --url=<login-url>
 
 # Manually log in through the visible browser window
 # Then run commands on authenticated pages
 
-node navigate.js --url=https://app.example.com/dashboard
+node navigate.js --url=<dashboard-url>
 node screenshot.js --output ./dashboard.png
 node evaluate.js --script "document.querySelector('.user-name').textContent"
 ```
@@ -77,8 +77,8 @@ node evaluate.js --script "document.querySelector('.user-name').textContent"
 node launch-persistent.js --headless=false
 
 # Fill out multi-page form
-node navigate.js --url=https://example.com/signup
-node fill.js --selector "#email" --value "user@example.com"
+node navigate.js --url=<signup-url>
+node fill.js --selector "#email" --value "user@domain.test"
 node click.js --selector ".next-button"
 # Wait for page to load, then continue...
 node fill.js --selector "#password" --value "secret123"

@@ -11,9 +11,9 @@ graph TB
     Customer[Customer<br/>Browses and purchases products]
     Admin[Administrator<br/>Manages products and orders]
 
-    Email[Email System<br/>SendGrid]
-    Payment[Payment Provider<br/>Stripe]
-    Analytics[Analytics Platform<br/>Google Analytics]
+    Email[Email System<br/>Transactional Email Service]
+    Payment[Payment Provider<br/>Payment Platform]
+    Analytics[Analytics Platform<br/>Product Analytics]
 
     Customer -->|Browses, Orders| System
     Admin -->|Manages| System

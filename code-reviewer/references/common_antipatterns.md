@@ -361,7 +361,7 @@ Secrets in source code.
 ```python
 # BAD: Hardcoded secrets
 API_KEY = "sk-abc123xyz789"
-DATABASE_URL = "postgresql://admin:password123@prod-db.internal:5432/app"
+DATABASE_URL = "postgresql://admin:<db-password>@prod-db.internal:5432/app"
 
 # GOOD: Environment variables
 import os

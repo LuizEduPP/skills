@@ -12,7 +12,22 @@ from pathlib import Path
 from datetime import datetime
 from typing import Dict, Any, List, Optional
 
-DB_FILE = Path.home() / ".claude" / "resume_data.json"
+
+def resolve_db_file() -> Path:
+    configured_dir = os.getenv("RESUME_MANAGER_DATA_DIR")
+    if configured_dir:
+        return Path(configured_dir).expanduser() / "resume_data.json"
+
+    xdg_data_home = os.getenv("XDG_DATA_HOME")
+    if xdg_data_home:
+        base_dir = Path(xdg_data_home).expanduser()
+    else:
+        base_dir = Path.home() / ".local" / "share"
+
+    return base_dir / "resume-manager" / "resume_data.json"
+
+
+DB_FILE = resolve_db_file()
 
 
 def ensure_db_file() -> None:

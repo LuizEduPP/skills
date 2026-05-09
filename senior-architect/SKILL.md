@@ -7,6 +7,17 @@ description: This skill should be used when the user asks to "design system arch
 
 Architecture design and analysis tools for making informed technical decisions.
 
+## Overview
+
+Use this skill for architecture reviews, technology choices, dependency analysis, and system diagrams when the user needs a decision backed by trade-offs.
+
+## When to Use
+
+- Designing or reviewing system architecture
+- Comparing architectural patterns or deployment models
+- Choosing databases, infrastructure, or integration boundaries
+- Generating diagrams or dependency reports for an existing codebase
+
 ## Table of Contents
 
 - [Quick Start](#quick-start)
@@ -39,7 +50,7 @@ python scripts/project_architect.py ./my-project --verbose
 
 ---
 
-## Tools Overview
+## Quick Reference
 
 ### 1. Architecture Diagram Generator
 
@@ -292,7 +303,7 @@ Start with a modular monolith. Extract services only when:
 
 ---
 
-## Reference Documentation
+## References
 
 Load these files for detailed information:
 
@@ -336,7 +347,7 @@ python scripts/project_architect.py . --output json
 
 ---
 
-## Getting Help
+## Troubleshooting
 
 1. Run any script with `--help` for usage information
 2. Check reference documentation for detailed patterns and workflows

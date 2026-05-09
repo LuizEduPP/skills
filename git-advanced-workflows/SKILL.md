@@ -210,7 +210,7 @@ git bisect run npm test
 
 ```bash
 # Main project directory
-cd ~/projects/myapp
+cd <workspace>/myapp
 
 # Create worktree for urgent bugfix
 git worktree add ../myapp-hotfix hotfix/critical-bug
@@ -222,7 +222,7 @@ git commit -m "fix: resolve critical bug"
 git push origin hotfix/critical-bug
 
 # Return to main work without interruption
-cd ~/projects/myapp
+cd <workspace>/myapp
 git fetch origin
 git cherry-pick hotfix/critical-bug
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Execute JavaScript in page context
- * Usage: node evaluate.js --script "document.title" [--url https://example.com]
+ * Usage: node evaluate.js --script "document.title" [--url <page-url>]
  */
 import { getBrowser, getPage, closeBrowser, parseArgs, outputJSON, outputError } from './lib/browser.js';
 

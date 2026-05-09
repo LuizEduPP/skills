@@ -44,7 +44,7 @@ const browser = await puppeteer.launch({
 const page = await browser.newPage();
 
 // Navigate
-await page.goto('https://example.com');
+await page.goto('<page-url>');
 
 // Do work...
 
@@ -152,10 +152,10 @@ await context.close();
 
 ```javascript
 // Navigate to URL
-await page.goto('https://example.com');
+await page.goto('<page-url>');
 
 // Navigate with options
-await page.goto('https://example.com', {
+await page.goto('<page-url>', {
   waitUntil: 'networkidle2',    // or 'load', 'domcontentloaded', 'networkidle0'
   timeout: 30000                 // Max wait time (ms)
 });
@@ -236,7 +236,7 @@ await page.type('#search', 'new text');
 
 ```javascript
 // Fill input
-await page.type('#username', 'john@example.com');
+await page.type('#username', 'user@domain.test');
 await page.type('#password', 'secret123');
 
 // Select dropdown option
@@ -522,7 +522,7 @@ const pixel = devices['Pixel 5'];
 const galaxy = devices['Galaxy S9+'];
 
 // Navigate after emulation
-await page.goto('https://example.com');
+await page.goto('<page-url>');
 ```
 
 ### Custom Device
@@ -563,7 +563,7 @@ await page.setGeolocation({
 
 // Grant permissions
 const context = browser.defaultBrowserContext();
-await context.overridePermissions('https://example.com', ['geolocation']);
+await context.overridePermissions('<page-url>', ['geolocation']);
 ```
 
 ### Timezone & Locale
@@ -642,7 +642,7 @@ await page.tracing.start({
 });
 
 // Navigate
-await page.goto('https://example.com');
+await page.goto('<page-url>');
 
 // Stop tracing
 await page.tracing.stop();
@@ -660,7 +660,7 @@ await page.coverage.startJSCoverage();
 await page.coverage.startCSSCoverage();
 
 // Navigate
-await page.goto('https://example.com');
+await page.goto('<page-url>');
 
 // Stop and get coverage
 const jsCoverage = await page.coverage.stopJSCoverage();
@@ -765,7 +765,7 @@ const frames = page.frames();
 const frame = page.frames().find(f => f.name() === 'myframe');
 
 // Find frame by URL
-const frame = page.frames().find(f => f.url().includes('example.com'));
+const frame = page.frames().find(f => f.url().includes('<app-domain>'));
 
 // Main frame
 const mainFrame = page.mainFrame();
@@ -810,7 +810,7 @@ const cookies = await page.cookies();
 await page.setCookie({
   name: 'session',
   value: 'abc123',
-  domain: 'example.com',
+  domain: '<app-domain>',
   path: '/',
   httpOnly: true,
   secure: true,
@@ -842,7 +842,7 @@ await page.evaluate(() => localStorage.clear());
 
 ```javascript
 try {
-  await page.goto('https://example.com', {
+  await page.goto('<page-url>', {
     waitUntil: 'networkidle2',
     timeout: 30000
   });

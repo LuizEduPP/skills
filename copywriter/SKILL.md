@@ -5,11 +5,11 @@ version: 1.0.0
 tags: [copywriting, content, marketing, ux-writing, microcopy]
 ---
 
-# Copywriter Skill
+# Copywriter
 
-I help you write clear, compelling copy for your product, marketing, and user experience.
+## Overview
 
-## What I Do
+Use this skill to write clear, persuasive copy for product surfaces, marketing assets, and user-facing flows.
 
 **UX Writing:**
 
@@ -498,7 +498,7 @@ export function PaymentSuccessEmail({ orderNumber, total }: {
 <Input placeholder="Enter value" />
 
 // ✅ Good: Helpful example
-<Input placeholder="e.g., john@example.com" />
+<Input placeholder="e.g., user@domain.test" />
 <Input placeholder="e.g., My Awesome Project" />
 <TextArea placeholder="Tell us what happened..." />
 ```
@@ -592,7 +592,7 @@ export function PaymentSuccessEmail({ orderNumber, total }: {
 
 ---
 
-## When to Use Me
+## When to Use
 
 **Perfect for:**
 
@@ -610,7 +610,7 @@ export function PaymentSuccessEmail({ orderNumber, total }: {
 - Enhance user experience
 - Create consistent messaging
 
-## What I'll Create
+## Output
 
 ```
 ✏️ UX Copy (buttons, errors, labels)

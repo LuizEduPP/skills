@@ -317,12 +317,12 @@ describe('LoginForm', () => {
       </AuthProvider>
     );
 
-    await user.type(screen.getByLabelText(/email/i), 'test@example.com');
-    await user.type(screen.getByLabelText(/password/i), 'password123');
+    await user.type(screen.getByLabelText(/email/i), 'user@domain.test');
+    await user.type(screen.getByLabelText(/password/i), 'test-secret');
     await user.click(screen.getByRole('button', { name: /sign in/i }));
 
     await waitFor(() => {
-      expect(mockLogin).toHaveBeenCalledWith('test@example.com', 'password123');
+      expect(mockLogin).toHaveBeenCalledWith('user@domain.test', 'test-secret');
     });
   });
 
@@ -361,7 +361,7 @@ test.describe('Checkout flow', () => {
     await page.click('text=Proceed to Checkout');
 
     // Fill shipping info
-    await page.fill('[name="email"]', 'test@example.com');
+    await page.fill('[name="email"]', 'user@domain.test');
     await page.fill('[name="address"]', '123 Test St');
     await page.fill('[name="city"]', 'Test City');
     await page.selectOption('[name="state"]', 'CA');
@@ -795,7 +795,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 // Never include secrets in client code - use server-side API routes
 // app/api/data/route.ts
 export async function GET() {
-  const response = await fetch('https://api.example.com/data', {
+  const response = await fetch('<api-base-url>/data', {
     headers: {
       'Authorization': `Bearer ${process.env.API_SECRET}`, // Server-side only
     },

@@ -34,7 +34,7 @@ await useTool('performance_start_trace', {
 
 // Navigate to page
 await useTool('navigate_page', {
-  url: 'https://example.com'
+  url: '<page-url>'
 });
 
 // Wait for complete load
@@ -64,7 +64,7 @@ const browser = await puppeteer.launch();
 const page = await browser.newPage();
 
 // Measure Core Web Vitals
-await page.goto('https://example.com', {
+await page.goto('<page-url>', {
   waitUntil: 'networkidle2'
 });
 
@@ -178,7 +178,7 @@ await useTool('performance_start_trace', {
 });
 
 // Perform actions
-await useTool('navigate_page', { url: 'https://example.com' });
+await useTool('navigate_page', { url: '<page-url>' });
 await useTool('wait_for', { waitUntil: 'networkidle' });
 
 // Optional: Interact with page
@@ -204,7 +204,7 @@ await page.tracing.start({
 });
 
 // Navigate
-await page.goto('https://example.com', {
+await page.goto('<page-url>', {
   waitUntil: 'networkidle2'
 });
 
@@ -254,7 +254,7 @@ await page.tracing.stop();
 **Using chrome-devtools-mcp:**
 ```javascript
 // Navigate to page
-await useTool('navigate_page', { url: 'https://example.com' });
+await useTool('navigate_page', { url: '<page-url>' });
 
 // Wait for all requests
 await useTool('wait_for', { waitUntil: 'networkidle' });
@@ -308,7 +308,7 @@ page.on('response', (response) => {
   });
 });
 
-await page.goto('https://example.com');
+await page.goto('<page-url>');
 ```
 
 ### Network Performance Metrics
@@ -326,7 +326,7 @@ page.on('response', async (response) => {
   resourceCounts[type] = (resourceCounts[type] || 0) + 1;
 });
 
-await page.goto('https://example.com');
+await page.goto('<page-url>');
 
 console.log('Total size:', (totalBytes / 1024 / 1024).toFixed(2), 'MB');
 console.log('Resources:', resourceCounts);
@@ -410,7 +410,7 @@ await client.send('Profiler.enable');
 await client.send('Profiler.start');
 
 // Navigate and interact
-await page.goto('https://example.com');
+await page.goto('<page-url>');
 await page.click('.button');
 
 // Stop profiling
@@ -431,7 +431,7 @@ await Promise.all([
 ]);
 
 // Navigate
-await page.goto('https://example.com');
+await page.goto('<page-url>');
 
 // Stop coverage
 const [jsCoverage, cssCoverage] = await Promise.all([
@@ -738,7 +738,7 @@ page.on('response', async (response) => {
 
 **Identify Render-Blocking Resources:**
 ```javascript
-await page.goto('https://example.com');
+await page.goto('<page-url>');
 
 const renderBlockingResources = await page.evaluate(() => {
   const resources = performance.getEntriesByType('resource');
@@ -768,7 +768,7 @@ import { launch } from 'chrome-launcher';
 const chrome = await launch({ chromeFlags: ['--headless'] });
 
 // Run Lighthouse
-const { lhr } = await lighthouse('https://example.com', {
+const { lhr } = await lighthouse('<page-url>', {
   port: chrome.port,
   onlyCategories: ['performance']
 });

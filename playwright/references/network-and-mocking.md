@@ -164,7 +164,7 @@ await page.route('**/api/users/*', handler);
 ## WebSocket Mocking
 
 ```typescript
-await page.routeWebSocket('wss://example.com/ws', ws => {
+await page.routeWebSocket('<websocket-url>', ws => {
   ws.onMessage(msg => {
     if (msg === 'ping') ws.send('pong');
   });

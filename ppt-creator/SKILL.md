@@ -165,6 +165,6 @@ python scripts/chartkit.py \
 
 ## Advanced Tips
 
-- This skill **complements** (not conflicts with) Anthropic's built-in PowerPoint generation capabilities. Use this skill to produce "high-quality structure & content," then optionally invoke system capabilities to export the final PPTX file.
+- This skill **complements** any host-provided slide export capability. Use this skill to produce high-quality structure and content, then optionally invoke the current environment's export mechanism to generate the final PPTX file.
 - For complex data analysis needs, combine with other skills (e.g., data analysis, charting) before invoking ppt-creator.
 - The skill is designed to be forgiving: missing information triggers safe defaults rather than blocking progress.

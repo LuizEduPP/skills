@@ -39,8 +39,8 @@ agent-browser snapshot -i
 ### Snapshot Output Format
 
 ```
-Page: Example Site - Home
-URL: https://example.com
+Page: Application Home
+URL: <page-url>
 
 @e1 [header]
   @e2 [nav]
@@ -69,10 +69,10 @@ Once you have refs, interact directly:
 agent-browser click @e6
 
 # Fill email input
-agent-browser fill @e10 "user@example.com"
+agent-browser fill @e10 "user@domain.test"
 
 # Fill password
-agent-browser fill @e11 "password123"
+agent-browser fill @e11 "$APP_PASSWORD"
 
 # Submit the form
 agent-browser click @e12
@@ -101,12 +101,12 @@ agent-browser snapshot -i
 
 ```bash
 # CORRECT
-agent-browser open https://example.com
+agent-browser open <page-url>
 agent-browser snapshot -i          # Get refs first
 agent-browser click @e1            # Use ref
 
 # WRONG
-agent-browser open https://example.com
+agent-browser open <page-url>
 agent-browser click @e1            # Ref doesn't exist yet!
 ```
 

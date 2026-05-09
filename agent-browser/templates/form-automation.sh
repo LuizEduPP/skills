@@ -30,7 +30,7 @@ agent-browser snapshot -i
 #
 # Common field types:
 #   agent-browser fill @e1 "John Doe"           # Text input
-#   agent-browser fill @e2 "user@example.com"   # Email input
+#   agent-browser fill @e2 "user@domain.test"   # Email input
 #   agent-browser fill @e3 "SecureP@ss123"      # Password input
 #   agent-browser select @e4 "Option Value"     # Dropdown
 #   agent-browser check @e5                     # Checkbox
@@ -40,7 +40,7 @@ agent-browser snapshot -i
 #
 # Uncomment and modify:
 # agent-browser fill @e1 "Test User"
-# agent-browser fill @e2 "test@example.com"
+# agent-browser fill @e2 "user@domain.test"
 # agent-browser click @e3  # Submit button
 
 # Step 4: Wait for submission

@@ -18,12 +18,12 @@ Every browser automation follows this pattern:
 4. **Re-snapshot**: After navigation or DOM changes, get fresh refs
 
 ```bash
-agent-browser open https://example.com/form
+agent-browser open <form-url>
 agent-browser snapshot -i
 # Output: @e1 [input type="email"], @e2 [input type="password"], @e3 [button] "Submit"
 
-agent-browser fill @e1 "user@example.com"
-agent-browser fill @e2 "password123"
+agent-browser fill @e1 "user@domain.test"
+agent-browser fill @e2 "$APP_PASSWORD"
 agent-browser click @e3
 agent-browser wait 2000
 agent-browser snapshot -i  # Check result
@@ -35,13 +35,13 @@ Commands can be chained with `&&` in a single shell invocation. The browser pers
 
 ```bash
 # Chain open + snapshot in one call (open already waits for page load)
-agent-browser open https://example.com && agent-browser snapshot -i
+agent-browser open <page-url> && agent-browser snapshot -i
 
 # Chain multiple interactions
-agent-browser fill @e1 "user@example.com" && agent-browser fill @e2 "password123" && agent-browser click @e3
+agent-browser fill @e1 "user@domain.test" && agent-browser fill @e2 "$APP_PASSWORD" && agent-browser click @e3
 
 # Navigate and capture
-agent-browser open https://example.com && agent-browser screenshot
+agent-browser open <page-url> && agent-browser screenshot
 ```
 
 **When to chain:** Use `&&` when you don't need to read the output of an intermediate command before proceeding (e.g., open + wait + screenshot). Run commands separately when you need to parse the output first (e.g., snapshot to discover refs, then interact using those refs).
@@ -56,7 +56,7 @@ When automating a site that requires login, choose the approach that fits:
 # Connect to the user's running Chrome (they're already logged in)
 agent-browser --auto-connect state save ./auth.json
 # Use that auth state
-agent-browser --state ./auth.json open https://app.example.com/dashboard
+agent-browser --state ./auth.json open <dashboard-url>
 ```
 
 State files contain session tokens in plaintext -- add to `.gitignore` and delete when no longer needed. Set `AGENT_BROWSER_ENCRYPTION_KEY` for encryption at rest.
@@ -74,42 +74,43 @@ agent-browser --profile Default open https://gmail.com
 **Option 3: Persistent profile (for recurring tasks)**
 
 ```bash
-# First run: login manually or via automation
-agent-browser --profile ~/.myapp open https://app.example.com/login
-# ... fill credentials, submit ...
+# Initialize an isolated profile directory
+mkdir -p <user-data-dir>/agent-browser/profiles/myapp
+agent-browser --profile <user-data-dir>/agent-browser/profiles/myapp open <login-url>
+# ... authenticate using automation or preloaded state ...
 
 # All future runs: already authenticated
-agent-browser --profile ~/.myapp open https://app.example.com/dashboard
+agent-browser --profile <user-data-dir>/agent-browser/profiles/myapp open <dashboard-url>
 ```
 
 **Option 4: Session name (auto-save/restore cookies + localStorage)**
 
 ```bash
-agent-browser --session-name myapp open https://app.example.com/login
+agent-browser --session-name myapp open <login-url>
 # ... login flow ...
 agent-browser close  # State auto-saved
 
 # Next time: state auto-restored
-agent-browser --session-name myapp open https://app.example.com/dashboard
+agent-browser --session-name myapp open <dashboard-url>
 ```
 
 **Option 5: Auth vault (credentials stored encrypted, login by name)**
 
 ```bash
-echo "$PASSWORD" | agent-browser auth save myapp --url https://app.example.com/login --username user --password-stdin
+echo "$PASSWORD" | agent-browser auth save myapp --url <login-url> --username user --password-stdin
 agent-browser auth login myapp
 ```
 
 `auth login` navigates with `load` and then waits for login form selectors to appear before filling/clicking, which is more reliable on delayed SPA login screens.
 
-**Option 6: State file (manual save/load)**
+**Option 6: State file (explicit save/load workflow)**
 
 ```bash
 # After logging in:
 agent-browser state save ./auth.json
 # In a future session:
 agent-browser state load ./auth.json
-agent-browser open https://app.example.com/dashboard
+agent-browser open <dashboard-url>
 ```
 
 See [references/authentication.md](references/authentication.md) for OAuth, 2FA, cookie-based auth, and token refresh patterns.
@@ -118,8 +119,8 @@ See [references/authentication.md](references/authentication.md) for OAuth, 2FA,
 
 ```bash
 # Batch: ALWAYS use batch for 2+ sequential commands. Commands run in order.
-agent-browser batch "open https://example.com" "snapshot -i"
-agent-browser batch "open https://example.com" "screenshot"
+agent-browser batch "open <page-url>" "snapshot -i"
+agent-browser batch "open <page-url>" "screenshot"
 agent-browser batch "click @e1" "wait 1000" "screenshot"
 
 # Navigation
@@ -168,7 +169,7 @@ agent-browser --download-path ./downloads open <url>  # Set default download dir
 # Tab management
 agent-browser tab list                         # List all open tabs
 agent-browser tab new                          # Open a blank new tab
-agent-browser tab new https://example.com      # Open URL in a new tab
+agent-browser tab new <page-url>      # Open URL in a new tab
 agent-browser tab 2                            # Switch to tab by index (0-based)
 agent-browser tab close                        # Close the current tab
 agent-browser tab close 2                      # Close tab by index
@@ -243,16 +244,16 @@ ALWAYS use `batch` when running 2+ commands in sequence. Batch executes commands
 
 ```bash
 # Navigate and take a snapshot
-agent-browser batch "open https://example.com" "snapshot -i"
+agent-browser batch "open <page-url>" "snapshot -i"
 
 # Navigate, snapshot, and screenshot in one call
-agent-browser batch "open https://example.com" "snapshot -i" "screenshot"
+agent-browser batch "open <page-url>" "snapshot -i" "screenshot"
 
 # Click, wait, then screenshot
 agent-browser batch "click @e1" "wait 1000" "screenshot"
 
 # With --bail to stop on first error
-agent-browser batch --bail "open https://example.com" "click @e1" "screenshot"
+agent-browser batch --bail "open <page-url>" "click @e1" "screenshot"
 ```
 
 Only use a single command (not batch) when you need to read the output before deciding the next command. For example, you must run `snapshot -i` as a single command when you need to read the refs to decide what to click. After reading the snapshot, batch the remaining steps.
@@ -260,7 +261,7 @@ Only use a single command (not batch) when you need to read the output before de
 Stdin mode is also supported for programmatic use:
 
 ```bash
-echo '[["open","https://example.com"],["screenshot"]]' | agent-browser batch --json
+echo '[["open","<page-url>"],["screenshot"]]' | agent-browser batch --json
 agent-browser batch --bail < commands.json
 ```
 
@@ -280,7 +281,7 @@ agent-browser batch "open https://news.ycombinator.com" "snapshot -i --urls"
 # Read output to extract URLs, then visit each directly:
 # 2. One batch per target site
 agent-browser batch "open https://github.com/example/repo" "screenshot"
-agent-browser batch "open https://example.com/article" "screenshot"
+agent-browser batch "open <article-url>" "screenshot"
 agent-browser batch "open https://other.com/page" "screenshot"
 ```
 
@@ -292,9 +293,9 @@ This approach uses 4 tool calls instead of 14+. Never go back to the listing pag
 
 ```bash
 # Navigate and get the form structure
-agent-browser batch "open https://example.com/signup" "snapshot -i"
+agent-browser batch "open <signup-url>" "snapshot -i"
 # Read the snapshot output to identify form refs, then fill and submit
-agent-browser batch "fill @e1 \"Jane Doe\"" "fill @e2 \"jane@example.com\"" "select @e3 \"California\"" "check @e4" "click @e5" "wait 2000"
+agent-browser batch "fill @e1 \"Jane Doe\"" "fill @e2 \"user@domain.test\"" "select @e3 \"Region A\"" "check @e4" "click @e5" "wait 2000"
 ```
 
 ### Authentication with Auth Vault (Recommended)
@@ -319,28 +320,28 @@ agent-browser auth delete github
 
 ```bash
 # Login once and save state
-agent-browser batch "open https://app.example.com/login" "snapshot -i"
+agent-browser batch "open <login-url>" "snapshot -i"
 # Read snapshot to find form refs, then fill and submit
 agent-browser batch "fill @e1 \"$USERNAME\"" "fill @e2 \"$PASSWORD\"" "click @e3" "wait --url **/dashboard" "state save auth.json"
 
 # Reuse in future sessions
-agent-browser batch "state load auth.json" "open https://app.example.com/dashboard"
+agent-browser batch "state load auth.json" "open <dashboard-url>"
 ```
 
 ### Session Persistence
 
 ```bash
 # Auto-save/restore cookies and localStorage across browser restarts
-agent-browser --session-name myapp open https://app.example.com/login
+agent-browser --session-name myapp open <login-url>
 # ... login flow ...
-agent-browser close  # State auto-saved to ~/.agent-browser/sessions/
+agent-browser close  # State auto-saved to <user-data-dir>/agent-browser/sessions/
 
 # Next time, state is auto-loaded
-agent-browser --session-name myapp open https://app.example.com/dashboard
+agent-browser --session-name myapp open <dashboard-url>
 
 # Encrypt state at rest
 export AGENT_BROWSER_ENCRYPTION_KEY=$(openssl rand -hex 32)
-agent-browser --session-name secure open https://app.example.com
+agent-browser --session-name secure open <app-url>
 
 # Manage saved states
 agent-browser state list
@@ -354,7 +355,7 @@ agent-browser state clean --older-than 7
 Iframe content is automatically inlined in snapshots. Refs inside iframes carry frame context, so you can interact with them directly.
 
 ```bash
-agent-browser batch "open https://example.com/checkout" "snapshot -i"
+agent-browser batch "open <checkout-url>" "snapshot -i"
 # @e1 [heading] "Checkout"
 # @e2 [Iframe] "payment-frame"
 #   @e3 [input] "Card number"
@@ -372,7 +373,7 @@ agent-browser frame main          # Return to main frame
 ### Data Extraction
 
 ```bash
-agent-browser batch "open https://example.com/products" "snapshot -i"
+agent-browser batch "open <products-url>" "snapshot -i"
 # Read snapshot to find element refs, then extract
 agent-browser get text @e5           # Get specific element text
 
@@ -397,7 +398,7 @@ agent-browser session list
 
 ```bash
 # Auto-discover running Chrome with remote debugging enabled
-agent-browser --auto-connect open https://example.com
+agent-browser --auto-connect open <page-url>
 agent-browser --auto-connect snapshot
 
 # Or with explicit CDP port
@@ -410,10 +411,10 @@ Auto-connect discovers Chrome via `DevToolsActivePort`, common debugging ports (
 
 ```bash
 # Persistent dark mode via flag (applies to all pages and new tabs)
-agent-browser --color-scheme dark open https://example.com
+agent-browser --color-scheme dark open <page-url>
 
 # Or via environment variable
-AGENT_BROWSER_COLOR_SCHEME=dark agent-browser open https://example.com
+AGENT_BROWSER_COLOR_SCHEME=dark agent-browser open <page-url>
 
 # Or set during session (persists for subsequent commands)
 agent-browser set media dark
@@ -445,7 +446,7 @@ The `scale` parameter (3rd argument) sets `window.devicePixelRatio` without chan
 ### Visual Browser (Debugging)
 
 ```bash
-agent-browser --headed open https://example.com
+agent-browser --headed open <page-url>
 agent-browser highlight @e1          # Highlight element
 agent-browser inspect                # Open Chrome DevTools for the active page
 agent-browser record start demo.webm # Record session
@@ -471,7 +472,7 @@ agent-browser screenshot output.png
 agent-browser device list
 
 # Launch Safari on a specific device
-agent-browser -p ios --device "iPhone 16 Pro" open https://example.com
+agent-browser -p ios --device "iPhone 16 Pro" open <page-url>
 
 # Same workflow as desktop - snapshot, interact, re-snapshot
 agent-browser -p ios snapshot -i
@@ -502,18 +503,18 @@ Enable `--content-boundaries` to wrap page-sourced output in markers that help L
 export AGENT_BROWSER_CONTENT_BOUNDARIES=1
 agent-browser snapshot
 # Output:
-# --- AGENT_BROWSER_PAGE_CONTENT nonce=<hex> origin=https://example.com ---
+# --- AGENT_BROWSER_PAGE_CONTENT nonce=<hex> origin=<page-url> ---
 # [accessibility tree]
 # --- END_AGENT_BROWSER_PAGE_CONTENT nonce=<hex> ---
 ```
 
 ### Domain Allowlist
 
-Restrict navigation to trusted domains. Wildcards like `*.example.com` also match the bare domain `example.com`. Sub-resource requests, WebSocket, and EventSource connections to non-allowed domains are also blocked. Include CDN domains your target pages depend on:
+Restrict navigation to trusted domains. Wildcards like `*.<app-domain>` also match the bare domain `<app-domain>`. Sub-resource requests, WebSocket, and EventSource connections to non-allowed domains are also blocked. Include CDN domains your target pages depend on:
 
 ```bash
-export AGENT_BROWSER_ALLOWED_DOMAINS="example.com,*.example.com"
-agent-browser open https://example.com        # OK
+export AGENT_BROWSER_ALLOWED_DOMAINS="<app-domain>,*.<app-domain>"
+agent-browser open <page-url>        # OK
 agent-browser open https://malicious.com       # Blocked
 ```
 
@@ -561,7 +562,7 @@ agent-browser screenshot baseline.png
 agent-browser diff screenshot --baseline baseline.png
 
 # Compare staging vs production
-agent-browser diff url https://staging.example.com https://prod.example.com --screenshot
+agent-browser diff url <staging-url> <production-url> --screenshot
 ```
 
 `diff snapshot` output uses `+` for additions and `-` for removals, similar to git diff. `diff screenshot` produces a diff image with changed pixels highlighted in red, plus a mismatch percentage.
@@ -638,7 +639,7 @@ If a previous session was not closed properly, the daemon may still be running. 
 To auto-shutdown the daemon after a period of inactivity (useful for ephemeral/CI environments):
 
 ```bash
-AGENT_BROWSER_IDLE_TIMEOUT_MS=60000 agent-browser open example.com
+AGENT_BROWSER_IDLE_TIMEOUT_MS=60000 agent-browser open <page-url>
 ```
 
 ## Ref Lifecycle (Important)
@@ -729,7 +730,7 @@ Create `agent-browser.json` in the project root for persistent settings:
 }
 ```
 
-Priority (lowest to highest): `~/.agent-browser/config.json` < `./agent-browser.json` < env vars < CLI flags. Use `--config <path>` or `AGENT_BROWSER_CONFIG` env var for a custom config file (exits with error if missing/invalid). All CLI options map to camelCase keys (e.g., `--executable-path` -> `"executablePath"`). Boolean flags accept `true`/`false` values (e.g., `--headed false` overrides config). Extensions from user and project configs are merged, not replaced.
+Priority (lowest to highest): `<user-config-dir>/agent-browser/config.json` < `./agent-browser.json` < env vars < CLI flags. Use `--config <path>` or `AGENT_BROWSER_CONFIG` env var for a custom config file (exits with error if missing/invalid). All CLI options map to camelCase keys (e.g., `--executable-path` -> `"executablePath"`). Boolean flags accept `true`/`false` values (e.g., `--headed false` overrides config). Extensions from user and project configs are merged, not replaced.
 
 ## Deep-Dive Documentation
 
@@ -751,13 +752,13 @@ Use `-p <provider>` (or `AGENT_BROWSER_PROVIDER`) to run against a cloud browser
 
 ```bash
 # Credentials auto-resolved from env vars or AWS CLI (SSO, IAM roles, etc.)
-agent-browser -p agentcore open https://example.com
+agent-browser -p agentcore open <page-url>
 
 # With persistent browser profile
-AGENTCORE_PROFILE_ID=my-profile agent-browser -p agentcore open https://example.com
+AGENTCORE_PROFILE_ID=my-profile agent-browser -p agentcore open <page-url>
 
 # With explicit region
-AGENTCORE_REGION=eu-west-1 agent-browser -p agentcore open https://example.com
+AGENTCORE_REGION=eu-west-1 agent-browser -p agentcore open <page-url>
 ```
 
 Set `AWS_PROFILE` to select a named AWS profile.
@@ -768,14 +769,14 @@ Use `--engine` to choose a local browser engine. The default is `chrome`.
 
 ```bash
 # Use Lightpanda (fast headless browser, requires separate install)
-agent-browser --engine lightpanda open example.com
+agent-browser --engine lightpanda open <page-url>
 
 # Via environment variable
 export AGENT_BROWSER_ENGINE=lightpanda
-agent-browser open example.com
+agent-browser open <page-url>
 
 # With custom binary path
-agent-browser --engine lightpanda --executable-path /path/to/lightpanda open example.com
+agent-browser --engine lightpanda --executable-path /path/to/lightpanda open <page-url>
 ```
 
 Supported engines:
@@ -793,7 +794,7 @@ The dashboard is a standalone background server that shows live browser viewport
 agent-browser dashboard start
 
 # All sessions are automatically visible in the dashboard
-agent-browser open example.com
+agent-browser open <page-url>
 
 # Stop the dashboard
 agent-browser dashboard stop
@@ -807,7 +808,7 @@ The dashboard has an optional AI chat tab powered by the Vercel AI Gateway. Enab
 
 ```bash
 export AI_GATEWAY_API_KEY=gw_your_key_here
-export AI_GATEWAY_MODEL=anthropic/claude-sonnet-4-5           # optional default (any OpenRouter-compatible model)
+export AI_GATEWAY_MODEL=<gateway-model-id>                   # optional default; any gateway-supported model works
 export AI_GATEWAY_URL=https://ai-gateway.vercel.sh           # optional default
 ```
 
@@ -822,7 +823,7 @@ The Chat tab is always visible in the dashboard. Set `AI_GATEWAY_API_KEY` to ena
 | [templates/capture-workflow.sh](templates/capture-workflow.sh)           | Content extraction with screenshots |
 
 ```bash
-./templates/form-automation.sh https://example.com/form
-./templates/authenticated-session.sh https://app.example.com/login
-./templates/capture-workflow.sh https://example.com ./output
+./templates/form-automation.sh <form-url>
+./templates/authenticated-session.sh <login-url>
+./templates/capture-workflow.sh <page-url> ./output
 ```

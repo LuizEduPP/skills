@@ -4,13 +4,13 @@ description: Complete browser automation with Playwright. Auto-detects dev serve
 ---
 
 **IMPORTANT - Path Resolution:**
-This skill can be installed in different locations (plugin system, manual installation, global, or project-specific). Before executing any commands, determine the skill directory based on where you loaded this SKILL.md file, and use that path in all commands below. Replace `$SKILL_DIR` with the actual discovered path.
+This skill can be installed in different locations depending on the host application. Before executing any commands, determine the skill directory based on where you loaded this SKILL.md file, and use that path in all commands below. Replace `$SKILL_DIR` with the actual discovered path.
 
-Common installation paths:
+Common installation patterns:
 
-- Plugin system: `~/.claude/plugins/marketplaces/playwright-skill/skills/playwright-skill`
-- Manual global: `~/.claude/skills/playwright-skill`
-- Project-specific: `<project>/.claude/skills/playwright-skill`
+- User-level skill directory: `<user-skill-root>/playwright-skill`
+- Workspace skill directory: `<workspace-skill-root>/playwright-skill`
+- Registry or marketplace installation: `<host-managed-skill-root>/playwright-skill`
 
 # Playwright Browser Automation
 
@@ -131,8 +131,8 @@ const TARGET_URL = 'http://localhost:3001'; // Auto-detected
 
   await page.goto(`${TARGET_URL}/login`);
 
-  await page.fill('input[name="email"]', 'test@example.com');
-  await page.fill('input[name="password"]', 'password123');
+  await page.fill('input[name="email"]', 'user@domain.test');
+  await page.fill('input[name="password"]', process.env.TEST_PASSWORD ?? '<secret>');
   await page.click('button[type="submit"]');
 
   // Wait for redirect
@@ -158,8 +158,8 @@ const TARGET_URL = 'http://localhost:3001'; // Auto-detected
   await page.goto(`${TARGET_URL}/contact`);
 
   await page.fill('input[name="name"]', 'John Doe');
-  await page.fill('input[name="email"]', 'john@example.com');
-  await page.fill('textarea[name="message"]', 'Test message');
+  await page.fill('input[name="email"]', 'user@domain.test');
+  await page.fill('textarea[name="message"]', 'Test submission payload');
   await page.click('button[type="submit"]');
 
   // Verify submission
@@ -179,7 +179,7 @@ const { chromium } = require('playwright');
   const browser = await chromium.launch({ headless: false });
   const page = await browser.newPage();
 
-  await page.goto('http://localhost:3000');
+  await page.goto(TARGET_URL);
 
   const links = await page.locator('a[href^="http"]').all();
   const results = { working: 0, broken: [] };

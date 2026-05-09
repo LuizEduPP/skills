@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Measure performance metrics and record trace
- * Usage: node performance.js --url https://example.com [--trace trace.json] [--metrics]
+ * Usage: node performance.js --url <page-url> [--trace trace.json] [--metrics]
  */
 import { getBrowser, getPage, closeBrowser, parseArgs, outputJSON, outputError } from './lib/browser.js';
 import fs from 'fs/promises';

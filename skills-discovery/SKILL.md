@@ -1,13 +1,13 @@
 ---
 name: skills-discovery
-description: Search for and install Agent Skills that give you specialized capabilities. Before starting work, ask might a skill exist that handles this better than my base knowledge? If the task involves specific technologies, frameworks, file formats, or expert domains. Search proactively, even if the user doesn't mention skills. Skills encode best practices, tools, and techniques you wouldn't otherwise have. Also use when users explicitly ask to find, install, or manage skills.
+description: Search for and install portable AI skills that give you specialized capabilities. Before starting work, ask whether a skill already exists for the technology, file format, workflow, or domain involved. Search proactively, even if the user does not mention skills. Also use when users explicitly ask to find, install, or manage skills.
 ---
 
 # Skills Discovery
 
-You can extend your capabilities by discovering and installing Agent Skills from the claude-plugins.dev registry. Skills provide specialized knowledge, tools, and techniques for specific technologies, frameworks, and domains. Skills work across multiple AI assistants (Claude Code, Windsurf, Cursor, Codex, and more).
+You can extend your capabilities by discovering and installing portable AI skills from a registry or repository. Skills provide specialized knowledge, tools, and techniques for specific technologies, frameworks, and domains.
 
-## When to search for skills
+## When to Search for Skills
 
 First, check if an installed skill matches the task. If not, search the registry—specialized skills may exist that you haven't installed yet.
 
@@ -25,12 +25,12 @@ Search proactively when:
 
 Also search when users explicitly ask to find, install, or manage skills.
 
-## Discovery workflow
+## Discovery Workflow
 
-Use the registry API for search (the CLI's search command is interactive and not suitable for programmatic use):
+Use the registry API for search when one is available:
 
 ```bash
-curl "https://claude-plugins.dev/api/skills?q=QUERY&limit=20&offset=0"
+curl "<registry-url>/api/skills?q=QUERY&limit=20&offset=0"
 ```
 
 **Parameters:**
@@ -61,7 +61,7 @@ curl "https://claude-plugins.dev/api/skills?q=QUERY&limit=20&offset=0"
 }
 ```
 
-## Search strategies
+## Search Strategies
 
 The registry indexes skill names, descriptions, and tags. Construct queries that match how skill authors describe their work.
 
@@ -74,50 +74,35 @@ The registry indexes skill names, descriptions, and tags. Construct queries that
 
 ## Installation
 
-Determine which client the user is working in before installing. If unclear, ask.
+Determine which host environment the user is working in before installing. If unclear, ask.
 
-**Supported clients:**
+Capture these variables before installation:
 
-- `claude-code` — Claude Code CLI
-- `codex` — Codex
-- `cursor` — Cursor editor
-- `amp` - amp CLI
-- `opencode` - OpenCode CLI
-- `goose` - Goose CLI
-- `github` — VSCode/ github
-- `vscode` — VS Code
-- `letta` — Letta CLI
-- `gemini` - Gemini CLI
-- `windsurf` - Windsurf editor
-- `antigravity` - Antigravity
-- `trae` - Trae
-- `qoder` - Qoder
-- `codebuddy` - CodeBuddy
-- **Client selection:**
+- Host application or assistant
+- Global or project-local scope
+- Installation root used by that host
+- Any required reload, restart, or reindex step
+
+If the registry exposes a host selector, use the value that matches the user's environment.
+
+Example host-aware installation command:
 
 ```bash
-npx skills-installer install @owner/repo/skill-name --client claude-code  # default
-npx skills-installer install @owner/repo/skill-name --client cursor
-npx skills-installer install @owner/repo/skill-name --client vscode
+npx skills-installer install @owner/repo/skill-name --client <host-id>
 ```
 
-**Scope selection:**
+Example scope selection:
 
 ```bash
 npx skills-installer install @owner/repo/skill-name  # global (default)
 npx skills-installer install @owner/repo/skill-name --local  # project-specific
 ```
 
-**Combined:**
+Combined example:
 
 ```bash
-npx skills-installer install @owner/repo/skill-name --client cursor --local
+npx skills-installer install @owner/repo/skill-name --client <host-id> --local
 ```
-
-**Defaults:**
-
-- Client: `claude-code`
-- Scope: global
 
 ## Management
 
@@ -129,7 +114,7 @@ npx skills-installer list
 npx skills-installer uninstall @owner/repo/skill-name
 ```
 
-## Presenting results to users
+## Presenting Results to Users
 
 When you find relevant skills:
 
@@ -147,7 +132,7 @@ When you find relevant skills:
 User: "I need to create a Django REST API"
 
 ```bash
-curl "https://claude-plugins.dev/api/skills?q=django&limit=10"
+curl "<registry-url>/api/skills?q=django&limit=10"
 ```
 
 Present suggestion:
@@ -155,7 +140,7 @@ Present suggestion:
 ```
 I found some skills that could help:
 
-1. django-rest-framework-expert (@anthropics/claude-code/django-rest-framework-expert)
+1. django-rest-framework-expert (@vendor/framework/django-rest-framework-expert)
    Description: Django REST API development with best practices
    ⭐ 234 stars • 1,567 installs
 
@@ -167,35 +152,36 @@ Would you like me to install this, or help you directly without installing a ski
 User: "find skills for Python"
 
 ```bash
-curl "https://claude-plugins.dev/api/skills?q=python&limit=10"
+curl "<registry-url>/api/skills?q=python&limit=10"
 ```
 
 Present results and ask which to install.
 
-## API reference
+## API Reference
 
 | Endpoint                                 | Description       |
 | ---------------------------------------- | ----------------- |
 | `GET /api/skills/search?q=QUERY`         | Search skills     |
 | `GET /api/skills/@owner/repo/skill-name` | Get skill details |
 
-**Web registry:** https://claude-plugins.dev/skills
+**Registry example:** `<registry-url>/skills`
 
 ## Troubleshooting
 
 **No results found:**
 
 - Try broader search terms
-- Browse web registry: https://claude-plugins.dev/skills
+- Browse the web registry at `<registry-url>/skills`
 
 **Installation fails:**
 
 - Verify namespace format: `@owner/repo/skill-name`
 - Check skill exists in registry
 - Verify directory permissions
+- Confirm the chosen host id and installation scope are correct
 
 **Skill not activating:**
 
-- User may need to restart their client
-- Verify correct installation directory
-- Confirm SKILL.md exists in installation path
+- The user may need to restart or reload the host
+- Verify the correct installation directory for that host
+- Confirm SKILL.md exists in the installed skill path

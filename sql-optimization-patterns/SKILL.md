@@ -28,11 +28,11 @@ Understanding EXPLAIN output is fundamental to optimization.
 
 ```sql
 -- Basic explain
-EXPLAIN SELECT * FROM users WHERE email = 'user@example.com';
+EXPLAIN SELECT * FROM users WHERE email = 'user@domain.test';
 
 -- With actual execution stats
 EXPLAIN ANALYZE
-SELECT * FROM users WHERE email = 'user@example.com';
+SELECT * FROM users WHERE email = 'user@domain.test';
 
 -- Verbose output with more details
 EXPLAIN (ANALYZE, BUFFERS, VERBOSE)
@@ -108,15 +108,15 @@ SELECT id, email, name FROM users WHERE id = 123;
 
 ```sql
 -- Bad: Function prevents index usage
-SELECT * FROM users WHERE LOWER(email) = 'user@example.com';
+SELECT * FROM users WHERE LOWER(email) = 'user@domain.test';
 
 -- Good: Create functional index or use exact match
 CREATE INDEX idx_users_email_lower ON users(LOWER(email));
 -- Then:
-SELECT * FROM users WHERE LOWER(email) = 'user@example.com';
+SELECT * FROM users WHERE LOWER(email) = 'user@domain.test';
 
 -- Or store normalized data
-SELECT * FROM users WHERE email = 'user@example.com';
+SELECT * FROM users WHERE email = 'user@domain.test';
 ```
 
 **Optimize JOINs:**
@@ -315,15 +315,15 @@ LEFT JOIN user_order_counts uoc ON ru.id = uoc.user_id;
 
 ```sql
 -- Bad: Multiple individual inserts
-INSERT INTO users (name, email) VALUES ('Alice', 'alice@example.com');
-INSERT INTO users (name, email) VALUES ('Bob', 'bob@example.com');
-INSERT INTO users (name, email) VALUES ('Carol', 'carol@example.com');
+INSERT INTO users (name, email) VALUES ('Alice', 'alice@domain.test');
+INSERT INTO users (name, email) VALUES ('Bob', 'bob@domain.test');
+INSERT INTO users (name, email) VALUES ('Carol', 'carol@domain.test');
 
 -- Good: Batch insert
 INSERT INTO users (name, email) VALUES
-    ('Alice', 'alice@example.com'),
-    ('Bob', 'bob@example.com'),
-    ('Carol', 'carol@example.com');
+    ('Alice', 'alice@domain.test'),
+    ('Bob', 'bob@domain.test'),
+    ('Carol', 'carol@domain.test');
 
 -- Better: Use COPY for bulk inserts (PostgreSQL)
 COPY users (name, email) FROM '/tmp/users.csv' CSV HEADER;
@@ -418,7 +418,7 @@ WHERE created_at BETWEEN '2024-02-01' AND '2024-02-28';
 -- Force index usage (MySQL)
 SELECT * FROM users
 USE INDEX (idx_users_email)
-WHERE email = 'user@example.com';
+WHERE email = 'user@domain.test';
 
 -- Parallel query (PostgreSQL)
 SET max_parallel_workers_per_gather = 4;

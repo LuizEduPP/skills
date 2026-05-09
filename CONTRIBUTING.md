@@ -50,12 +50,23 @@ Thank you for your interest in contributing! This document provides guidelines f
 - [ ] SKILL.md with proper frontmatter (name, description)
 - [ ] Clear, actionable description
 - [ ] English language (for consistency)
+- [ ] Host-agnostic wording unless the skill is intentionally platform-specific
 
 ### Recommended
 - [ ] Usage examples
 - [ ] Code snippets where applicable
 - [ ] Reference guides for complex skills
 - [ ] Scripts for automation tasks
+- [ ] Generic path placeholders such as `<skill-root>` or `<workspace>`
+- [ ] Compatibility notes separated from core instructions
+
+### Editorial Standards
+
+- Use direct, imperative prose instead of conversational filler
+- Prefer Title Case for section headers
+- Reuse common section names when they fit: `Overview`, `When to Use`, `Quick Start`, `Instructions`, `Examples`, `Best Practices`
+- Keep examples concrete, portable, and free of host-specific defaults unless the skill is explicitly platform-specific
+- Put vendor-specific notes in clearly labeled compatibility sections instead of the main workflow
 
 ### Description Format
 
@@ -81,6 +92,8 @@ description: Create professional slide decks from topics. Use for presentations,
 - Include code comments for complex logic
 - Follow existing patterns in the repository
 - Test scripts before submitting
+- Avoid coupling the main instructions to a single IDE, assistant, or app
+- If a host-specific example is necessary, label it as an example rather than the default path
 
 ## Review Process
 
@@ -88,6 +101,14 @@ description: Create professional slide decks from topics. Use for presentations,
 2. Skills should be unique (check for duplicates)
 3. Documentation must be complete
 4. Examples should be tested and working
+
+## Validation
+
+Run the repository checks before submitting:
+
+```bash
+python3 scripts/lint_skills.py
+```
 
 ## Questions?
 

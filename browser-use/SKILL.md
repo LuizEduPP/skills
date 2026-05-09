@@ -144,8 +144,8 @@ browser-use profile update                # Download/update profile-use binary
 Commands can be chained with `&&`. The browser persists via the daemon, so chaining is safe and efficient.
 
 ```bash
-browser-use open https://example.com && browser-use state
-browser-use input 5 "user@example.com" && browser-use input 6 "password" && browser-use click 7
+browser-use open <target-url> && browser-use state
+browser-use input 5 "<user-email>" && browser-use input 6 "$APP_PASSWORD" && browser-use click 7
 ```
 
 Chain when you don't need intermediate output. Run separately when you need to parse `state` to discover indices first.
@@ -181,10 +181,10 @@ browser-use config set cloud_connect_proxy jp      # Set a value
 browser-use config get cloud_connect_proxy         # Get a value
 browser-use config unset cloud_connect_timeout     # Remove a value
 browser-use doctor                                 # Shows config + diagnostics
-browser-use setup                                  # Interactive post-install setup
+browser-use config set profile work                # Example non-interactive configuration change
 ```
 
-Config stored in `~/.browser-use/config.json`.
+Config stored in `<user-config-dir>/browser-use/config.json`.
 
 ## Global Options
 

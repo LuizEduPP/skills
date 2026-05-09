@@ -71,7 +71,7 @@ def convert_with_ai(
     input_file: Path,
     output_file: Path,
     api_key: str,
-    model: str = "anthropic/claude-opus-4-5",
+    model: str,
     prompt_type: str = "general",
     custom_prompt: str = None
 ) -> bool:
@@ -82,7 +82,7 @@ def convert_with_ai(
         input_file: Path to input file
         output_file: Path to output Markdown file
         api_key: OpenRouter API key
-        model: Model name via OpenRouter (default: anthropic/claude-opus-4-5)
+        model: Vision-capable model name via OpenRouter
         prompt_type: Type of prompt to use
         custom_prompt: Custom prompt (overrides prompt_type)
         
@@ -154,22 +154,19 @@ Examples:
   python convert_with_ai.py paper.pdf output.md --prompt-type scientific
   
   # Convert a presentation with custom model
-  python convert_with_ai.py slides.pptx slides.md --model anthropic/claude-opus-4-5 --prompt-type presentation
+    python convert_with_ai.py slides.pptx slides.md --model <vision-model> --prompt-type presentation
   
   # Use custom prompt with any vision-capable model
-  python convert_with_ai.py diagram.png diagram.md --model openai/gpt-4o --custom-prompt "Describe this technical diagram"
+    python convert_with_ai.py diagram.png diagram.md --model <vision-model> --custom-prompt "Describe this technical diagram"
   
   # Set API key via environment variable
   export OPENROUTER_API_KEY="sk-or-v1-..."
+    export OPENROUTER_MODEL="<vision-model>"
   python convert_with_ai.py image.jpg image.md
 
 Environment Variables:
   OPENROUTER_API_KEY    OpenRouter API key (required if not passed via --api-key)
-
-Popular Models (use with --model):
-  anthropic/claude-opus-4-5  - Strong vision model (Anthropic)
-  openai/gpt-4o              - Strong vision model (OpenAI)
-  google/gemini-2-flash      - Fast vision model (Google)
+    OPENROUTER_MODEL      Default vision-capable model ID for --model
         """
     )
     
@@ -181,8 +178,8 @@ Popular Models (use with --model):
     )
     parser.add_argument(
         '--model', '-m',
-        default='anthropic/claude-opus-4-5',
-        help='Model to use via OpenRouter (default: anthropic/claude-opus-4-5; any vision-capable model works)'
+        default=os.getenv('OPENROUTER_MODEL'),
+        help='Model to use via OpenRouter (defaults to OPENROUTER_MODEL when set)'
     )
     parser.add_argument(
         '--prompt-type', '-t',
@@ -210,6 +207,9 @@ Popular Models (use with --model):
             print(prompt)
             print("\n" + "="*60 + "\n")
         sys.exit(0)
+
+    if not args.model:
+        parser.error('--model is required unless OPENROUTER_MODEL is set')
     
     # Get API key
     api_key = args.api_key or os.environ.get('OPENROUTER_API_KEY')

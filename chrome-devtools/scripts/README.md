@@ -10,7 +10,7 @@ CLI scripts for browser automation using Puppeteer.
 
 ```bash
 pwd  # Should show current working directory
-cd .claude/skills/chrome-devtools/scripts
+cd <skill-root>/chrome-devtools/scripts
 ./install.sh  # Auto-checks dependencies and installs
 ```
 
@@ -39,7 +39,7 @@ npm install
 Navigate to a URL.
 
 ```bash
-node navigate.js --url https://example.com [--wait-until networkidle2] [--timeout 30000]
+node navigate.js --url <page-url> [--wait-until networkidle2] [--timeout 30000]
 ```
 
 ### screenshot.js
@@ -48,10 +48,10 @@ Take a screenshot with automatic compression.
 **Important**: Always save screenshots to `./docs/screenshots` directory.
 
 ```bash
-node screenshot.js --output screenshot.png [--url https://example.com] [--full-page true] [--selector .element] [--max-size 5] [--no-compress]
+node screenshot.js --output screenshot.png [--url <page-url>] [--full-page true] [--selector .element] [--max-size 5] [--no-compress]
 ```
 
-**Automatic Compression**: Screenshots >5MB are automatically compressed using ImageMagick to ensure compatibility with AI vision APIs (Gemini, Claude, etc. — 5MB limit). Install ImageMagick for this feature:
+**Automatic Compression**: Screenshots >5MB are automatically compressed using ImageMagick to ensure compatibility with common multimodal APIs that impose upload limits. Install ImageMagick for this feature:
 - macOS: `brew install imagemagick`
 - Linux: `sudo apt-get install imagemagick`
 
@@ -65,49 +65,49 @@ Options:
 Click an element.
 
 ```bash
-node click.js --selector ".button" [--url https://example.com] [--wait-for ".result"]
+node click.js --selector ".button" [--url <page-url>] [--wait-for ".result"]
 ```
 
 ### fill.js
 Fill form fields.
 
 ```bash
-node fill.js --selector "#input" --value "text" [--url https://example.com] [--clear true]
+node fill.js --selector "#input" --value "text" [--url <page-url>] [--clear true]
 ```
 
 ### evaluate.js
 Execute JavaScript in page context.
 
 ```bash
-node evaluate.js --script "document.title" [--url https://example.com]
+node evaluate.js --script "document.title" [--url <page-url>]
 ```
 
 ### snapshot.js
 Get DOM snapshot with interactive elements.
 
 ```bash
-node snapshot.js [--url https://example.com] [--output snapshot.json]
+node snapshot.js [--url <page-url>] [--output snapshot.json]
 ```
 
 ### console.js
 Monitor console messages.
 
 ```bash
-node console.js --url https://example.com [--types error,warn] [--duration 5000]
+node console.js --url <page-url> [--types error,warn] [--duration 5000]
 ```
 
 ### network.js
 Monitor network requests.
 
 ```bash
-node network.js --url https://example.com [--types xhr,fetch] [--output requests.json]
+node network.js --url <page-url> [--types xhr,fetch] [--output requests.json]
 ```
 
 ### performance.js
 Measure performance metrics and record trace.
 
 ```bash
-node performance.js --url https://example.com [--trace trace.json] [--metrics] [--resources true]
+node performance.js --url <page-url> [--trace trace.json] [--metrics] [--resources true]
 ```
 
 ## Common Options
@@ -125,16 +125,16 @@ Scripts that accept `--selector` (click.js, fill.js, screenshot.js) support both
 
 ```bash
 # Element tag
-node click.js --selector "button" --url https://example.com
+node click.js --selector "button" --url <page-url>
 
 # Class selector
-node click.js --selector ".btn-submit" --url https://example.com
+node click.js --selector ".btn-submit" --url <page-url>
 
 # ID selector
-node fill.js --selector "#email" --value "user@example.com" --url https://example.com
+node fill.js --selector "#email" --value "user@domain.test" --url <page-url>
 
 # Attribute selector
-node click.js --selector 'button[type="submit"]' --url https://example.com
+node click.js --selector 'button[type="submit"]' --url <page-url>
 
 # Complex selector
 node screenshot.js --selector "div.container > button.btn-primary" --output btn.png
@@ -146,13 +146,13 @@ XPath selectors start with `/` or `(//` and are automatically detected:
 
 ```bash
 # Text matching - exact
-node click.js --selector '//button[text()="Submit"]' --url https://example.com
+node click.js --selector '//button[text()="Submit"]' --url <page-url>
 
 # Text matching - contains
-node click.js --selector '//button[contains(text(),"Submit")]' --url https://example.com
+node click.js --selector '//button[contains(text(),"Submit")]' --url <page-url>
 
 # Attribute matching
-node fill.js --selector '//input[@type="email"]' --value "user@example.com"
+node fill.js --selector '//input[@type="email"]' --value "user@domain.test"
 
 # Multiple conditions
 node click.js --selector '//button[@type="submit" and contains(text(),"Save")]'
@@ -170,13 +170,13 @@ Use `snapshot.js` to discover correct selectors:
 
 ```bash
 # Get all interactive elements
-node snapshot.js --url https://example.com | jq '.elements[]'
+node snapshot.js --url <page-url> | jq '.elements[]'
 
 # Find buttons
-node snapshot.js --url https://example.com | jq '.elements[] | select(.tagName=="BUTTON")'
+node snapshot.js --url <page-url> | jq '.elements[] | select(.tagName=="BUTTON")'
 
 # Find inputs
-node snapshot.js --url https://example.com | jq '.elements[] | select(.tagName=="INPUT")'
+node snapshot.js --url <page-url> | jq '.elements[] | select(.tagName=="INPUT")'
 ```
 
 ### Security
@@ -196,7 +196,7 @@ All scripts output JSON to stdout:
 ```json
 {
   "success": true,
-  "url": "https://example.com",
+  "url": "<page-url>",
   "title": "Example Domain",
   ...
 }

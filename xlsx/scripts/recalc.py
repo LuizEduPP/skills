@@ -14,8 +14,8 @@ from office.soffice import get_soffice_env
 
 from openpyxl import load_workbook
 
-MACRO_DIR_MACOS = "~/Library/Application Support/LibreOffice/4/user/basic/Standard"
-MACRO_DIR_LINUX = "~/.config/libreoffice/4/user/basic/Standard"
+MACRO_DIR_MACOS = str(Path.home() / "Library" / "Application Support" / "LibreOffice" / "4" / "user" / "basic" / "Standard")
+MACRO_DIR_LINUX = str(Path.home() / ".config" / "libreoffice" / "4" / "user" / "basic" / "Standard")
 MACRO_FILENAME = "Module1.xba"
 
 RECALCULATE_MACRO = """<?xml version="1.0" encoding="UTF-8"?>

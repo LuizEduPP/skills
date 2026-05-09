@@ -51,7 +51,7 @@ npx playwright show-report
 npx playwright show-trace test-results/my-test/trace.zip
 
 # Remote trace
-npx playwright show-trace https://example.com/trace.zip
+npx playwright show-trace <trace-zip-url>
 ```
 
 ### What Traces Contain

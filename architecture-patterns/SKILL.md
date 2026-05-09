@@ -436,10 +436,10 @@ async def test_create_user_succeeds():
     repo = InMemoryUserRepository()
     use_case = CreateUserUseCase(user_repository=repo)
 
-    response = await use_case.execute(CreateUserRequest(email="alice@example.com", name="Alice"))
+    response = await use_case.execute(CreateUserRequest(email="alice@domain.test", name="Alice"))
 
     assert response.success
-    assert response.user.email == "alice@example.com"
+    assert response.user.email == "alice@domain.test"
     assert response.user.id is not None
 
 
@@ -447,8 +447,8 @@ async def test_duplicate_email_rejected():
     repo = InMemoryUserRepository()
     use_case = CreateUserUseCase(user_repository=repo)
 
-    await use_case.execute(CreateUserRequest(email="alice@example.com", name="Alice"))
-    response = await use_case.execute(CreateUserRequest(email="alice@example.com", name="Alice2"))
+    await use_case.execute(CreateUserRequest(email="alice@domain.test", name="Alice"))
+    response = await use_case.execute(CreateUserRequest(email="alice@domain.test", name="Alice2"))
 
     assert not response.success
     assert "already exists" in response.error

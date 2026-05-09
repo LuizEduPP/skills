@@ -12,7 +12,7 @@ license: MIT
 1. Search for skills matching the user's request using `search_skills`
 2. Present results with title, description, author, and file list
 3. If the user picks a skill, retrieve it with `get_skill` to get all files
-4. Install by saving files to `.claude/skills/{slug}/` and verify the SKILL.md exists
+4. Install by saving files to the user's chosen skill directory and verify the SKILL.md exists
 5. Confirm installation and explain what the skill does and when it activates
 
 ## Example
@@ -62,10 +62,10 @@ Returns the skill metadata and all file contents:
 When the user asks to install a skill:
 
 1. Call `get_skill` to retrieve all files
-2. Create the directory `.claude/skills/{slug}/`
+2. Confirm the target host and choose an installation root such as `<user-skill-root>/{slug}/` or `<workspace-skill-root>/{slug}/`
 3. Save each file to the appropriate location:
-   - `SKILL.md` → `.claude/skills/{slug}/SKILL.md`
-   - Other files → `.claude/skills/{slug}/{filename}`
+  - `SKILL.md` → `<skill-root>/{slug}/SKILL.md`
+  - Other files → `<skill-root>/{slug}/{filename}`
 4. Read back `SKILL.md` to verify the frontmatter is intact
 
 ## Guidelines
@@ -74,3 +74,4 @@ When the user asks to install a skill:
 - Present search results in a readable format with file counts
 - When installing, confirm the skill was saved successfully
 - Explain what the skill does and when it activates
+- Keep installation instructions host-agnostic unless the user explicitly asks for one platform

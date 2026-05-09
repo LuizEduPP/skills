@@ -7,6 +7,25 @@ description: Generate test cases for code. Use when writing unit tests, integrat
 
 Generate comprehensive test cases for code.
 
+## Overview
+
+Use this skill to draft focused tests that cover behavior, edge cases, and failures without coupling the tests to implementation details.
+
+## When to Use
+
+- Writing new unit tests
+- Adding integration or acceptance coverage
+- Reproducing a bug with a failing test first
+- Checking whether a change has enough verification
+
+## Quick Start
+
+1. Identify the behavior or acceptance criterion
+2. Add one happy-path test
+3. Add the most important edge case
+4. Add the failure mode or invalid input case
+5. Run the narrowest possible test command first
+
 ## Test Categories
 
 | Category | Examples |
@@ -67,7 +86,7 @@ test_login_wrong_password_raises_error
 | Utilities | 90%+ |
 | UI | 60%+ |
 
-## Tips
+## Best Practices
 - Test behavior, not implementation
 - One assertion per test
 - Mock external dependencies

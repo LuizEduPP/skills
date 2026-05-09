@@ -21,20 +21,20 @@ Use the `--proxy` flag or set proxy via environment variable:
 
 ```bash
 # Via CLI flag
-agent-browser --proxy "http://proxy.example.com:8080" open https://example.com
+agent-browser --proxy "<proxy-url>" open <page-url>
 
 # Via environment variable
-export HTTP_PROXY="http://proxy.example.com:8080"
-agent-browser open https://example.com
+export HTTP_PROXY="<proxy-url>"
+agent-browser open <page-url>
 
 # HTTPS proxy
-export HTTPS_PROXY="https://proxy.example.com:8080"
-agent-browser open https://example.com
+export HTTPS_PROXY="<secure-proxy-url>"
+agent-browser open <page-url>
 
 # Both
-export HTTP_PROXY="http://proxy.example.com:8080"
-export HTTPS_PROXY="http://proxy.example.com:8080"
-agent-browser open https://example.com
+export HTTP_PROXY="<proxy-url>"
+export HTTPS_PROXY="<proxy-url>"
+agent-browser open <page-url>
 ```
 
 ## Authenticated Proxy
@@ -43,20 +43,20 @@ For proxies requiring authentication:
 
 ```bash
 # Include credentials in URL
-export HTTP_PROXY="http://username:password@proxy.example.com:8080"
-agent-browser open https://example.com
+export HTTP_PROXY="http://<proxy-user>:<proxy-password>@<proxy-host>:<proxy-port>"
+agent-browser open <page-url>
 ```
 
 ## SOCKS Proxy
 
 ```bash
 # SOCKS5 proxy
-export ALL_PROXY="socks5://proxy.example.com:1080"
-agent-browser open https://example.com
+export ALL_PROXY="socks5://<proxy-host>:<proxy-port>"
+agent-browser open <page-url>
 
 # SOCKS5 with auth
-export ALL_PROXY="socks5://user:pass@proxy.example.com:1080"
-agent-browser open https://example.com
+export ALL_PROXY="socks5://<proxy-user>:<proxy-password>@<proxy-host>:<proxy-port>"
+agent-browser open <page-url>
 ```
 
 ## Proxy Bypass
@@ -65,12 +65,12 @@ Skip proxy for specific domains using `--proxy-bypass` or `NO_PROXY`:
 
 ```bash
 # Via CLI flag
-agent-browser --proxy "http://proxy.example.com:8080" --proxy-bypass "localhost,*.internal.com" open https://example.com
+agent-browser --proxy "<proxy-url>" --proxy-bypass "localhost,*.internal.test" open <page-url>
 
 # Via environment variable
-export NO_PROXY="localhost,127.0.0.1,.internal.company.com"
-agent-browser open https://internal.company.com  # Direct connection
-agent-browser open https://external.com          # Via proxy
+export NO_PROXY="localhost,127.0.0.1,.internal.test"
+agent-browser open https://intranet.internal.test  # Direct connection
+agent-browser open <external-url>                  # Via proxy
 ```
 
 ## Common Use Cases
@@ -82,9 +82,9 @@ agent-browser open https://external.com          # Via proxy
 # Test site from different regions using geo-located proxies
 
 PROXIES=(
-    "http://us-proxy.example.com:8080"
-    "http://eu-proxy.example.com:8080"
-    "http://asia-proxy.example.com:8080"
+    "http://us-proxy.internal.test:8080"
+    "http://eu-proxy.internal.test:8080"
+    "http://asia-proxy.internal.test:8080"
 )
 
 for proxy in "${PROXIES[@]}"; do
@@ -94,7 +94,7 @@ for proxy in "${PROXIES[@]}"; do
     region=$(echo "$proxy" | grep -oP '^\w+-\w+')
     echo "Testing from: $region"
 
-    agent-browser --session "$region" open https://example.com
+    agent-browser --session "$region" open <page-url>
     agent-browser --session "$region" screenshot "./screenshots/$region.png"
     agent-browser --session "$region" close
 done
@@ -107,9 +107,9 @@ done
 # Rotate through proxy list to avoid rate limiting
 
 PROXY_LIST=(
-    "http://proxy1.example.com:8080"
-    "http://proxy2.example.com:8080"
-    "http://proxy3.example.com:8080"
+    "http://proxy1.internal.test:8080"
+    "http://proxy2.internal.test:8080"
+    "http://proxy3.internal.test:8080"
 )
 
 URLS=(
@@ -137,15 +137,15 @@ done
 #!/bin/bash
 # Access internal sites via corporate proxy
 
-export HTTP_PROXY="http://corpproxy.company.com:8080"
-export HTTPS_PROXY="http://corpproxy.company.com:8080"
-export NO_PROXY="localhost,127.0.0.1,.company.com"
+export HTTP_PROXY="http://corpproxy.internal.test:8080"
+export HTTPS_PROXY="http://corpproxy.internal.test:8080"
+export NO_PROXY="localhost,127.0.0.1,.internal.test"
 
 # External sites go through proxy
-agent-browser open https://external-vendor.com
+agent-browser open <external-url>
 
 # Internal sites bypass proxy
-agent-browser open https://intranet.company.com
+agent-browser open https://intranet.internal.test
 ```
 
 ## Verifying Proxy Connection
@@ -163,10 +163,10 @@ agent-browser get text body
 
 ```bash
 # Test proxy connectivity first
-curl -x http://proxy.example.com:8080 https://httpbin.org/ip
+curl -x <proxy-url> https://httpbin.org/ip
 
 # Check if proxy requires auth
-export HTTP_PROXY="http://user:pass@proxy.example.com:8080"
+export HTTP_PROXY="http://<proxy-user>:<proxy-password>@<proxy-host>:<proxy-port>"
 ```
 
 ### SSL/TLS Errors Through Proxy
@@ -175,7 +175,7 @@ Some proxies perform SSL inspection. If you encounter certificate errors:
 
 ```bash
 # For testing only - not recommended for production
-agent-browser open https://example.com --ignore-https-errors
+agent-browser open <page-url> --ignore-https-errors
 ```
 
 ### Slow Performance

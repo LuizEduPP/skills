@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Monitor network requests
- * Usage: node network.js --url https://example.com [--types xhr,fetch] [--output requests.json]
+ * Usage: node network.js --url <page-url> [--types xhr,fetch] [--output requests.json]
  */
 import { getBrowser, getPage, closeBrowser, parseArgs, outputJSON, outputError } from './lib/browser.js';
 import fs from 'fs/promises';

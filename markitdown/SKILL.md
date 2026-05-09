@@ -139,7 +139,7 @@ client = OpenAI(
 
 md = MarkItDown(
     llm_client=client,
-    llm_model="anthropic/claude-opus-4-5",  # or openai/gpt-4o, google/gemini-2-flash
+    llm_model="your-vision-model",  # use any vision-capable model ID supported by your gateway
     llm_prompt="Describe this image in detail for scientific documentation"
 )
 
@@ -262,7 +262,7 @@ client = OpenAI(
 
 md = MarkItDown(
     llm_client=client,
-    llm_model="anthropic/claude-opus-4-5",  # or openai/gpt-4o, google/gemini-2-flash
+    llm_model="your-vision-model",  # use any vision-capable model ID supported by your gateway
     llm_prompt="Describe this slide image in detail, focusing on key visual elements and data"
 )
 
@@ -317,7 +317,7 @@ print(result.text_content)
 docker build -t markitdown:latest .
 
 # Run conversion
-docker run --rm -i markitdown:latest < ~/document.pdf > output.md
+docker run --rm -i markitdown:latest < ./document.pdf > output.md
 ```
 
 ## Best Practices
@@ -419,7 +419,7 @@ client = OpenAI(
 
 md_ai = MarkItDown(
     llm_client=client,
-    llm_model="anthropic/claude-opus-4-5",  # or openai/gpt-4o, google/gemini-2-flash
+    llm_model="your-vision-model",  # use any vision-capable model ID supported by your gateway
     llm_prompt="Describe scientific figures with technical precision"
 )
 ```

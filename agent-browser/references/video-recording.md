@@ -20,7 +20,7 @@ Capture browser automation as video for debugging, documentation, or verificatio
 agent-browser record start ./demo.webm
 
 # Perform actions
-agent-browser open https://example.com
+agent-browser open <page-url>
 agent-browser snapshot -i
 agent-browser click @e1
 agent-browser fill @e2 "test input"
@@ -53,7 +53,7 @@ agent-browser record restart ./take2.webm
 agent-browser record start ./debug-$(date +%Y%m%d-%H%M%S).webm
 
 # Run your automation
-agent-browser open https://app.example.com
+agent-browser open <app-url>
 agent-browser snapshot -i
 agent-browser click @e1 || {
     echo "Click failed - check recording"
@@ -72,14 +72,14 @@ agent-browser record stop
 
 agent-browser record start ./docs/how-to-login.webm
 
-agent-browser open https://app.example.com/login
+agent-browser open <login-url>
 agent-browser wait 1000  # Pause for visibility
 
 agent-browser snapshot -i
-agent-browser fill @e1 "demo@example.com"
+agent-browser fill @e1 "demo@domain.test"
 agent-browser wait 500
 
-agent-browser fill @e2 "password"
+agent-browser fill @e2 "$DEMO_PASSWORD"
 agent-browser wait 500
 
 agent-browser click @e3
@@ -151,7 +151,7 @@ agent-browser record start ./automation.webm
 # Record video AND capture key frames
 agent-browser record start ./flow.webm
 
-agent-browser open https://example.com
+agent-browser open <page-url>
 agent-browser screenshot ./screenshots/step1-homepage.png
 
 agent-browser click @e1

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Click an element
- * Usage: node click.js --selector ".button" [--url https://example.com] [--wait-for ".result"]
+ * Usage: node click.js --selector ".button" [--url <page-url>] [--wait-for ".result"]
  * Supports both CSS and XPath selectors:
  *   - CSS: node click.js --selector "button.submit"
  *   - XPath: node click.js --selector "//button[contains(text(),'Submit')]"

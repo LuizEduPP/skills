@@ -20,7 +20,7 @@ On Linux/WSL, Chrome requires system libraries. Install them first:
 
 ```bash
 pwd  # Should show current working directory
-cd .claude/skills/chrome-devtools/scripts
+cd <skill-root>/scripts
 ./install-deps.sh  # Auto-detects OS and installs required libs
 ```
 
@@ -57,13 +57,13 @@ Without ImageMagick, screenshots >5MB will not be compressed (may fail to load i
 
 ### Test
 ```bash
-node navigate.js --url https://example.com
-# Output: {"success": true, "url": "https://example.com", "title": "Example Domain"}
+node navigate.js --url <page-url>
+# Output: {"success": true, "url": "<page-url>", "title": "Page Title"}
 ```
 
 ## Available Scripts
 
-All scripts are in `.claude/skills/chrome-devtools/scripts/`
+All scripts are in `<skill-root>/scripts/`
 
 **CRITICAL**: Always check `pwd` before running scripts.
 
@@ -88,23 +88,24 @@ All scripts are in `.claude/skills/chrome-devtools/scripts/`
 ### Single Command
 ```bash
 pwd  # Should show current working directory
-cd .claude/skills/chrome-devtools/scripts
-node screenshot.js --url https://example.com --output ./docs/screenshots/page.png
+cd <skill-root>/scripts
+node screenshot.js --url <page-url> --output ./docs/screenshots/page.png
+node screenshot.js --url <page-url> --output ./docs/screenshots/page.png
 ```
 **Important**: Always save screenshots to `./docs/screenshots` directory.
 
 ### Automatic Image Compression
-Screenshots are **automatically compressed** if they exceed 5MB to ensure compatibility with AI vision APIs (Gemini, Claude, etc. — 5MB limits). This uses ImageMagick internally:
+Screenshots are **automatically compressed** if they exceed 5MB to ensure compatibility with common multimodal APIs that impose upload limits. This uses ImageMagick internally:
 
 ```bash
 # Default: auto-compress if >5MB
-node screenshot.js --url https://example.com --output page.png
+node screenshot.js --url <page-url> --output page.png
 
 # Custom size threshold (e.g., 3MB)
-node screenshot.js --url https://example.com --output page.png --max-size 3
+node screenshot.js --url <page-url> --output page.png --max-size 3
 
 # Disable compression
-node screenshot.js --url https://example.com --output page.png --no-compress
+node screenshot.js --url <page-url> --output page.png --no-compress
 ```
 
 **Compression behavior:**
@@ -122,15 +123,15 @@ node screenshot.js --url https://example.com --output page.png --no-compress
   "originalSize": 8388608,
   "size": 3145728,
   "compressionRatio": "62.50%",
-  "url": "https://example.com"
+  "url": "<page-url>"
 }
 ```
 
 ### Chain Commands (reuse browser)
 ```bash
 # Keep browser open with --close false
-node navigate.js --url https://example.com/login --close false
-node fill.js --selector "#email" --value "user@example.com" --close false
+node navigate.js --url <login-url> --close false
+node fill.js --selector "#email" --value "user@domain.test" --close false
 node fill.js --selector "#password" --value "secret" --close false
 node click.js --selector "button[type=submit]"
 ```
@@ -138,10 +139,10 @@ node click.js --selector "button[type=submit]"
 ### Parse JSON Output
 ```bash
 # Extract specific fields with jq
-node performance.js --url https://example.com | jq '.vitals.LCP'
+node performance.js --url <page-url> | jq '.vitals.LCP'
 
 # Save to file
-node network.js --url https://example.com --output /tmp/requests.json
+node network.js --url <page-url> --output /tmp/requests.json
 ```
 
 ## Execution Protocol
@@ -150,7 +151,7 @@ node network.js --url https://example.com --output /tmp/requests.json
 
 BEFORE executing any script:
 1. Check current working directory with `pwd`
-2. Verify in `.claude/skills/chrome-devtools/scripts/` directory
+2. Verify you are in the skill's `scripts/` directory
 3. If wrong directory, `cd` to correct location
 4. Use absolute paths for all output files
 
@@ -158,7 +159,7 @@ Example:
 ```bash
 pwd  # Should show: .../chrome-devtools/scripts
 # If wrong:
-cd .claude/skills/chrome-devtools/scripts
+cd <skill-root>/scripts
 ```
 
 ### Output Validation
@@ -171,7 +172,7 @@ AFTER screenshot/capture operations:
 
 Example:
 ```bash
-node screenshot.js --url https://example.com --output ./docs/screenshots/page.png
+node screenshot.js --url <page-url> --output ./docs/screenshots/page.png
 ls -lh ./docs/screenshots/page.png  # Verify file exists
 # Then use Read tool to visually inspect
 ```
@@ -189,14 +190,14 @@ If script fails:
 Example:
 ```bash
 # CSS selector fails
-node click.js --url https://example.com --selector ".btn-submit"
+node click.js --url <page-url> --selector ".btn-submit"
 # Error: waiting for selector ".btn-submit" failed
 
 # Discover correct selector
-node snapshot.js --url https://example.com | jq '.elements[] | select(.tagName=="BUTTON")'
+node snapshot.js --url <page-url> | jq '.elements[] | select(.tagName=="BUTTON")'
 
 # Try XPath
-node click.js --url https://example.com --selector "//button[contains(text(),'Submit')]"
+node click.js --url <page-url> --selector "//button[contains(text(),'Submit')]"
 ```
 
 ### Common Mistakes
@@ -215,7 +216,7 @@ node click.js --url https://example.com --selector "//button[contains(text(),'Su
 
 ### Web Scraping
 ```bash
-node evaluate.js --url https://example.com --script "
+node evaluate.js --url <page-url> --script "
   Array.from(document.querySelectorAll('.item')).map(el => ({
     title: el.querySelector('h2')?.textContent,
     link: el.querySelector('a')?.href
@@ -225,7 +226,7 @@ node evaluate.js --url https://example.com --script "
 
 ### Performance Testing
 ```bash
-PERF=$(node performance.js --url https://example.com)
+PERF=$(node performance.js --url <page-url>)
 LCP=$(echo $PERF | jq '.vitals.LCP')
 if (( $(echo "$LCP < 2500" | bc -l) )); then
   echo "✓ LCP passed: ${LCP}ms"
@@ -236,13 +237,13 @@ fi
 
 ### Form Automation
 ```bash
-node fill.js --url https://example.com --selector "#search" --value "query" --close false
+node fill.js --url <page-url> --selector "#search" --value "query" --close false
 node click.js --selector "button[type=submit]"
 ```
 
 ### Error Monitoring
 ```bash
-node console.js --url https://example.com --types error,warn --duration 5000 | jq '.messageCount'
+node console.js --url <page-url> --types error,warn --duration 5000 | jq '.messageCount'
 ```
 
 ## Script Options
@@ -261,7 +262,7 @@ All scripts output JSON to stdout:
 ```json
 {
   "success": true,
-  "url": "https://example.com",
+  "url": "<page-url>",
   ... // script-specific data
 }
 ```
@@ -278,7 +279,7 @@ Errors go to stderr:
 
 Use `snapshot.js` to discover selectors:
 ```bash
-node snapshot.js --url https://example.com | jq '.elements[] | {tagName, text, selector}'
+node snapshot.js --url <page-url> | jq '.elements[] | {tagName, text, selector}'
 ```
 
 ## Troubleshooting
@@ -295,7 +296,7 @@ node snapshot.js --url https://example.com | jq '.elements[] | {tagName, text, s
 
 **"Failed to launch the browser process"**
 - Check system dependencies installed (Linux/WSL)
-- Verify Chrome downloaded: `ls ~/.cache/puppeteer`
+- Verify Chrome downloaded: `ls <user-cache-dir>/puppeteer`
 - Try: `npm rebuild` then `npm install`
 
 **Chrome not found**
@@ -329,7 +330,7 @@ node snapshot.js --url https://example.com | jq '.elements[] | {tagName, text, s
 - Check file was actually compressed in output JSON: `"compressed": true`
 - For very large pages, use `--selector` to capture only needed area
 
-## Reference Documentation
+## References
 
 Detailed guides available in `./references/`:
 - [CDP Domains Reference](./references/cdp-domains.md) - 47 Chrome DevTools Protocol domains

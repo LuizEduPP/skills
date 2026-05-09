@@ -268,7 +268,7 @@ agent-browser <command> --help        # Show detailed help for a command
 ## Debugging
 
 ```bash
-agent-browser --headed open example.com   # Show browser window
+agent-browser --headed open <page-url>   # Show browser window
 agent-browser --cdp 9222 snapshot         # Connect via CDP port
 agent-browser connect 9222                # Alternative: connect command
 agent-browser console                     # View console messages

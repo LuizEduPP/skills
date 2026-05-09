@@ -317,9 +317,9 @@ class DependencyAnalyzer:
             # JS/TS imports
             for match in re.finditer(r'(?:import|require)\s*\(?[\'"]([^\'"\s]+)[\'"]', content):
                 imp = match.group(1)
-                if imp.startswith('.') or imp.startswith('@/') or imp.startswith('~/'):
+                if imp.startswith('.') or imp.startswith('@/') or imp.startswith('#/'):
                     # Relative import - extract first path component
-                    parts = imp.lstrip('./~@').split('/')
+                    parts = imp.lstrip('./#@').split('/')
                     if parts:
                         imports.add(parts[0])
 

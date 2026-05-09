@@ -44,9 +44,9 @@ def normalize_for_compare(path_value: str) -> str:
 
 
 def normalize_path(project_path: str) -> str:
-    """Normalize project path to match Claude Code's internal representation.
+    """Normalize project path to match host-managed session storage.
 
-    Claude Code stores session directories using the Windows-native path
+    Some hosts store session directories using the Windows-native path
     (e.g., C:\\Users\\...) sanitized with separators replaced by dashes.
     Git Bash passes /c/Users/... which produces a DIFFERENT sanitized
     string. This function converts Git Bash paths to Windows paths first.
@@ -69,18 +69,21 @@ def normalize_path(project_path: str) -> str:
     return p
 
 
-def get_claude_project_dir(project_path: str) -> Path:
-    """Resolve Claude Code's project-specific session storage path."""
+def get_host_project_dir(project_path: str) -> Path:
+    """Resolve host-managed project-specific session storage path."""
     normalized = normalize_path(project_path)
 
-    # Claude Code's sanitization: replace path separators and : with -
+    # Host session storage sanitization: replace path separators and : with -
     sanitized = normalized.replace('\\', '-').replace('/', '-').replace(':', '-')
     sanitized = sanitized.replace('_', '-')
     # Strip leading dash if present (Unix absolute paths start with /)
     if sanitized.startswith('-'):
         sanitized = sanitized[1:]
 
-    return Path.home() / '.claude' / 'projects' / sanitized
+    state_root = os.getenv('PLANNING_WITH_FILES_PROJECTS_DIR')
+    if state_root:
+        return Path(os.path.expanduser(state_root)) / sanitized
+    return Path.home() / '.local' / 'share' / 'planning-with-files' / 'projects' / sanitized
 
 
 def get_sessions_sorted(project_dir: Path) -> List[Path]:
@@ -150,7 +153,10 @@ def is_codex_project_session(session: Path, project_cmp: str) -> bool:
 
 
 def get_codex_sessions(project_path: str) -> Iterable[Path]:
-    sessions_dir = Path(os.path.expanduser(os.getenv('CODEX_SESSIONS_DIR', '~/.codex/sessions')))
+    sessions_root = os.getenv('CODEX_SESSIONS_DIR') or os.getenv('PLANNING_WITH_FILES_CODEX_SESSIONS_DIR')
+    if not sessions_root:
+        return
+    sessions_dir = Path(os.path.expanduser(sessions_root))
     if not sessions_dir.exists():
         return
 
@@ -171,10 +177,10 @@ def get_session_candidates(project_path: str) -> Tuple[str, Iterable[Path]]:
     if '/.codex/' in Path(__file__).resolve().as_posix().lower():
         return 'codex', get_codex_sessions(project_path)
 
-    claude_project_dir = get_claude_project_dir(project_path)
-    if claude_project_dir.exists():
-        return 'claude', get_sessions_sorted(claude_project_dir)
-    return 'claude', []
+    host_project_dir = get_host_project_dir(project_path)
+    if host_project_dir.exists():
+        return 'host', get_sessions_sorted(host_project_dir)
+    return 'host', []
 
 
 def parse_session_messages(session_file: Path) -> List[Dict[str, Any]]:
@@ -387,7 +393,7 @@ def main():
     # Find a substantial previous session
     target_session = None
     for session in sessions:
-        if runtime_name == 'claude' and not is_substantial_session(session):
+        if runtime_name == 'host' and not is_substantial_session(session):
             continue
         target_session = session
         break
@@ -417,7 +423,7 @@ def main():
     print(f"Unsynced messages: {len(messages_after)}")
 
     print("\n--- UNSYNCED CONTEXT ---")
-    assistant_label = 'CODEX' if runtime_name == 'codex' else 'CLAUDE'
+    assistant_label = 'CODEX' if runtime_name == 'codex' else 'HOST'
     for msg in messages_after[-15:]:  # Last 15 messages
         if msg['role'] == 'user':
             print(f"USER: {msg['content'][:300]}")

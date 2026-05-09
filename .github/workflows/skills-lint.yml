@@ -1,0 +1,33 @@
+name: Skills Lint
+
+on:
+  push:
+    paths:
+      - "**/SKILL.md"
+      - "README.md"
+      - "CONTRIBUTING.md"
+      - "scripts/lint_skills.py"
+      - ".github/workflows/skills-lint.yml"
+  pull_request:
+    paths:
+      - "**/SKILL.md"
+      - "README.md"
+      - "CONTRIBUTING.md"
+      - "scripts/lint_skills.py"
+      - ".github/workflows/skills-lint.yml"
+
+jobs:
+  lint-skills:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run skill lint
+        run: python3 scripts/lint_skills.py

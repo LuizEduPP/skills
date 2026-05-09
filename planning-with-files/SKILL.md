@@ -2,35 +2,21 @@
 name: planning-with-files
 description: Implements Manus-style file-based planning to organize and track progress on complex tasks. Creates task_plan.md, findings.md, and progress.md. Use when asked to plan out, break down, or organize a multi-step project, research task, or any work requiring >5 tool calls. Supports automatic session recovery after /clear.
 user-invocable: true
-allowed-tools: "Read, Write, Edit, Bash, Glob, Grep"
-hooks:
-  UserPromptSubmit:
-    - hooks:
-        - type: command
-          command: "if [ -f task_plan.md ]; then echo '[planning-with-files] ACTIVE PLAN — current state:'; head -50 task_plan.md; echo ''; echo '=== recent progress ==='; tail -20 progress.md 2>/dev/null; echo ''; echo '[planning-with-files] Read findings.md for research context. Continue from the current phase.'; fi"
-  PreToolUse:
-    - matcher: "Write|Edit|Bash|Read|Glob|Grep"
-      hooks:
-        - type: command
-          command: "cat task_plan.md 2>/dev/null | head -30 || true"
-  PostToolUse:
-    - matcher: "Write|Edit"
-      hooks:
-        - type: command
-          command: "if [ -f task_plan.md ]; then echo '[planning-with-files] Update progress.md with what you just did. If a phase is now complete, update task_plan.md status.'; fi"
-  Stop:
-    - hooks:
-        - type: command
-          command: "export SD=\"${CLAUDE_PLUGIN_ROOT:-$HOME/.claude/plugins/planning-with-files}/scripts\"; powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"$SD/check-complete.ps1\" 2>/dev/null || sh \"$SD/check-complete.sh\""
-metadata:
-  version: "2.33.0"
 ---
 
 # Planning with Files
 
 Work like Manus: Use persistent markdown files as your "working memory on disk."
 
-## FIRST: Restore Context (v2.2.0)
+## Overview
+
+Use persistent project files to store task state, discoveries, and progress so long-running work survives context limits and session resets.
+
+## Optional Host Integration
+
+Some AI hosts support hooks, tool restrictions, or lifecycle automation. Treat those as optional enhancements, not required behavior. The core workflow in this document should still work in any IDE, editor, CLI, or chat app.
+
+## First: Restore Context
 
 **Before doing anything else**, check if planning files exist and read them:
 
@@ -39,12 +25,12 @@ Work like Manus: Use persistent markdown files as your "working memory on disk."
 
 ```bash
 # Linux/macOS
-$(command -v python3 || command -v python) ${CLAUDE_PLUGIN_ROOT}/scripts/session-catchup.py "$(pwd)"
+$(command -v python3 || command -v python) <skill-root>/scripts/session-catchup.py "$(pwd)"
 ```
 
 ```powershell
 # Windows PowerShell
-& (Get-Command python -ErrorAction SilentlyContinue).Source "$env:USERPROFILE\.claude\skills\planning-with-files\scripts\session-catchup.py" (Get-Location)
+& (Get-Command python -ErrorAction SilentlyContinue).Source "<skill-root>/scripts/session-catchup.py" (Get-Location)
 ```
 
 If catchup report shows unsynced context:
@@ -53,14 +39,14 @@ If catchup report shows unsynced context:
 3. Update planning files based on catchup + git diff
 4. Then proceed with task
 
-## Important: Where Files Go
+## Where Files Go
 
-- **Templates** are in `${CLAUDE_PLUGIN_ROOT}/templates/`
+- **Templates** are in `<skill-root>/templates/`
 - **Your planning files** go in **your project directory**
 
 | Location | What Goes There |
 |----------|-----------------|
-| Skill directory (`${CLAUDE_PLUGIN_ROOT}/`) | Templates, scripts, reference docs |
+| Skill directory (`<skill-root>/`) | Templates, scripts, reference docs |
 | Your project directory | `task_plan.md`, `findings.md`, `progress.md` |
 
 ## Quick Start

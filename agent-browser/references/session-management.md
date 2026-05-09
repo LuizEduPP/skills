@@ -20,13 +20,13 @@ Use `--session` flag to isolate browser contexts:
 
 ```bash
 # Session 1: Authentication flow
-agent-browser --session auth open https://app.example.com/login
+agent-browser --session auth open <login-url>
 
 # Session 2: Public browsing (separate cookies, storage)
-agent-browser --session public open https://example.com
+agent-browser --session public open <page-url>
 
 # Commands are isolated by session
-agent-browser --session auth fill @e1 "user@example.com"
+agent-browser --session auth fill @e1 "user@domain.test"
 agent-browser --session public get text body
 ```
 
@@ -56,7 +56,7 @@ agent-browser state save /path/to/auth-state.json
 agent-browser state load /path/to/auth-state.json
 
 # Continue with authenticated session
-agent-browser open https://app.example.com/dashboard
+agent-browser open <dashboard-url>
 ```
 
 ### State File Contents
@@ -83,10 +83,10 @@ STATE_FILE="/tmp/auth-state.json"
 # Check if we have saved state
 if [[ -f "$STATE_FILE" ]]; then
     agent-browser state load "$STATE_FILE"
-    agent-browser open https://app.example.com/dashboard
+  agent-browser open <dashboard-url>
 else
     # Perform login
-    agent-browser open https://app.example.com/login
+  agent-browser open <login-url>
     agent-browser snapshot -i
     agent-browser fill @e1 "$USERNAME"
     agent-browser fill @e2 "$PASSWORD"
@@ -139,7 +139,7 @@ When `--session` is omitted, commands use the default session:
 
 ```bash
 # These use the same default session
-agent-browser open https://example.com
+agent-browser open <page-url>
 agent-browser snapshot -i
 agent-browser close  # Closes default session
 ```
@@ -161,7 +161,7 @@ agent-browser session list
 ```bash
 # GOOD: Clear purpose
 agent-browser --session github-auth open https://github.com
-agent-browser --session docs-scrape open https://docs.example.com
+agent-browser --session docs-scrape open <docs-url>
 
 # AVOID: Generic names
 agent-browser --session s1 open https://github.com

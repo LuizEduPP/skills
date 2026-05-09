@@ -456,7 +456,7 @@ class LayerViolationDetector:
         if imp.startswith('.'):
             return None  # Skip relative imports
 
-        parts = imp.replace('@/', '').replace('~/', '').split('/')
+        parts = imp.replace('@/', '').replace('#/', '').split('/')
         if parts:
             return parts[0].split('.')[0]
         return None

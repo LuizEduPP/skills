@@ -101,7 +101,7 @@ from openai import OpenAI
 client = OpenAI()
 md = MarkItDown(
     llm_client=client,
-    llm_model="anthropic/claude-sonnet-4-5",  # or openai/gpt-4o, google/gemini-2-flash, etc.
+    llm_model="your-vision-model",  # use any vision-capable model ID supported by your gateway
     llm_prompt="Describe this scientific slide, focusing on data and key findings"
 )
 
@@ -143,7 +143,7 @@ Be technical and precise.
 
 md = MarkItDown(
     llm_client=client,
-    llm_model="anthropic/claude-sonnet-4-5",  # or any vision-capable model via OpenRouter
+    llm_model="your-vision-model",  # any vision-capable model via your compatible gateway
     llm_prompt=scientific_prompt
 )
 
@@ -167,14 +167,14 @@ client = OpenAI(
 # Scientific papers - use a vision-capable model for technical analysis
 scientific_md = MarkItDown(
     llm_client=client,
-    llm_model="anthropic/claude-sonnet-4-5",  # or openai/gpt-4o, google/gemini-2-flash, etc.
+    llm_model="your-scientific-vision-model",
     llm_prompt="Describe scientific figures with technical precision"
 )
 
 # Presentations - use any vision-capable model
 presentation_md = MarkItDown(
     llm_client=client,
-    llm_model="openai/gpt-4o",  # or anthropic/claude-sonnet-4-5, google/gemini-2-flash, etc.
+    llm_model="your-presentation-vision-model",
     llm_prompt="Summarize slide content and key visual elements"
 )
 

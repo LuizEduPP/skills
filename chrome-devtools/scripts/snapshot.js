@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Get DOM snapshot with selectors
- * Usage: node snapshot.js [--url https://example.com] [--output snapshot.json]
+ * Usage: node snapshot.js [--url <page-url>] [--output snapshot.json]
  */
 import { getBrowser, getPage, closeBrowser, parseArgs, outputJSON, outputError } from './lib/browser.js';
 import fs from 'fs/promises';

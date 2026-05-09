@@ -100,7 +100,7 @@ async def fetch_data(url: str) -> dict:
     return {"url": url, "data": "result"}
 
 async def main():
-    result = await fetch_data("https://api.example.com")
+    result = await fetch_data("<api-base-url>")
     print(result)
 
 asyncio.run(main())
@@ -282,7 +282,7 @@ async def consume_async_iterator():
         print(f"Number: {number}")
 
     print("\nFetching pages:")
-    async for page_data in fetch_pages("https://api.example.com/items", 3):
+    async for page_data in fetch_pages("<api-base-url>/items", 3):
         print(f"Page {page_data['page']}: {len(page_data['data'])} items")
 
 asyncio.run(consume_async_iterator())
@@ -365,7 +365,7 @@ async def rate_limited_requests(urls: List[str], max_concurrent: int = 5):
     return results
 
 async def main():
-    urls = [f"https://api.example.com/item/{i}" for i in range(20)]
+    urls = [f"<api-base-url>/item/{i}" for i in range(20)]
     results = await rate_limited_requests(urls, max_concurrent=3)
     print(f"Completed {len(results)} requests")
 
@@ -573,7 +573,7 @@ async def with_connection_pool():
     connector = aiohttp.TCPConnector(limit=100, limit_per_host=10)
 
     async with aiohttp.ClientSession(connector=connector) as session:
-        tasks = [session.get(f"https://api.example.com/item/{i}") for i in range(50)]
+        tasks = [session.get(f"<api-base-url>/item/{i}") for i in range(50)]
         responses = await asyncio.gather(*tasks)
         return responses
 ```
@@ -724,7 +724,7 @@ import pytest
 @pytest.mark.asyncio
 async def test_async_function():
     """Test async function."""
-    result = await fetch_data("https://api.example.com")
+    result = await fetch_data("<api-base-url>")
     assert result is not None
 
 @pytest.mark.asyncio

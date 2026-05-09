@@ -4,7 +4,7 @@
 
 > 🌐 Languages: **English** | [Português (BR)](README.pt-BR.md) | [Español](README.es.md)
 
-A curated collection of portable AI skills - templates, guides, and automations that work with any AI assistant.
+A curated collection of portable AI skills - templates, guides, and automations that work across assistants, editors, IDEs, and chat apps.
 
 ## What Are Skills
 
@@ -19,11 +19,11 @@ Skills are reusable knowledge modules that enhance AI-assisted development. Each
 Skills are **portable knowledge modules** that work wherever you use them:
 
 - ✅ Any AI assistant that can read markdown files
-- ✅ Claude Code, Claude Desktop, Claude Web
-- ✅ Copilot Chat, Cursor, Windsurf, Gemini CLI
+- ✅ IDEs, editors, terminals, and standalone chat apps
+- ✅ Automatic loading systems and manual workflows
 - ✅ Even manual reference - just read the SKILL.md files
 
-The `SKILL.md` format is plain markdown with frontmatter - usable anywhere.
+The `SKILL.md` format is plain markdown with frontmatter, so the content stays reusable even when each host has a different installation or activation model.
 
 ## Table of Contents
 
@@ -209,7 +209,7 @@ skills/
 
 ### Loading a Skill
 
-In AI assistants like Claude Code, Windsurf, and Cursor, skills are automatically loaded based on task description. You can also explicitly mention:
+In environments with automatic skill loading, skills are typically selected from the task description. You can also explicitly mention:
 
 ```
 Use skill [skill-name] for [task]
@@ -232,6 +232,23 @@ Content and instructions...
 ```
 
 3. Add scripts, templates, and references as needed
+
+### Authoring Rules
+
+- Write skills in English for consistency and portability
+- Keep instructions host-agnostic unless the skill is explicitly about a specific platform
+- Prefer placeholders such as `<skill-root>` or `<workspace>` over vendor-specific paths
+- Mention tool- or IDE-specific behavior only in dedicated compatibility notes
+- Prefer clear section names in Title Case, such as `Overview`, `When to Use`, `Quick Start`, `Examples`, and `Best Practices`
+- Keep examples concrete and reusable instead of tied to one host or product brand
+
+### Quality Checks
+
+Run the repository lint before submitting changes:
+
+```bash
+python3 scripts/lint_skills.py
+```
 
 ## Contributing
 

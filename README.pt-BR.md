@@ -19,8 +19,8 @@ Skills são módulos de conhecimento reutilizáveis que potencializam o desenvol
 Skills são **módulos de conhecimento portáteis** que funcionam em qualquer lugar:
 
 - ✅ Qualquer assistente de IA que leia arquivos markdown
-- ✅ Claude Code, Claude Desktop, Claude Web
-- ✅ Copilot Chat, Cursor, Windsurf, Gemini CLI
+- ✅ IDEs, editores, terminais e apps de chat independentes
+- ✅ Sistemas de carregamento automático e fluxos manuais
 - ✅ Referência manual — basta ler os arquivos SKILL.md
 
 O formato `SKILL.md` é markdown puro com frontmatter — utilizável em qualquer lugar.
@@ -209,7 +209,7 @@ skills/
 
 ### Carregando uma Skill
 
-Em assistentes de IA como Claude Code, Windsurf e Cursor, as skills são carregadas automaticamente com base na descrição da tarefa. Você também pode mencionar explicitamente:
+Em ambientes com carregamento automático, as skills normalmente são selecionadas a partir da descrição da tarefa. Você também pode mencioná-las explicitamente:
 
 ```
 Use skill [nome-da-skill] para [tarefa]

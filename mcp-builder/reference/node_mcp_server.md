@@ -66,7 +66,7 @@ See the MCP SDK documentation in the references for complete details.
 
 Node/TypeScript MCP servers must follow this naming pattern:
 - **Format**: `{service}-mcp-server` (lowercase with hyphens)
-- **Examples**: `github-mcp-server`, `jira-mcp-server`, `stripe-mcp-server`
+- **Examples**: `source-control-mcp-server`, `issue-tracker-mcp-server`, `payments-mcp-server`
 
 The name should be:
 - General (not tied to specific features)
@@ -598,7 +598,7 @@ import { z } from "zod";
 import axios, { AxiosError } from "axios";
 
 // Constants
-const API_BASE_URL = "https://api.example.com/v1";
+const API_BASE_URL = "<api-base-url>/v1";
 const CHARACTER_LIMIT = 25000;
 
 // Enums

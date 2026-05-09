@@ -7,7 +7,18 @@ description: Initialize development environment for a project. Use when setting 
 
 Set up a consistent development environment.
 
-## Common Setups
+## Overview
+
+Use this skill to bootstrap a predictable local environment for a project, teammate, or fresh workstation.
+
+## When to Use
+
+- Setting up a new repository locally
+- Onboarding a developer into an existing project
+- Recreating dependencies after environment drift
+- Writing down a minimal, repeatable local setup flow
+
+## Quick Start
 
 ### Node.js
 ```bash
@@ -49,7 +60,7 @@ API_KEY=your-key
 DEBUG=true
 ```
 
-## Tips
+## Best Practices
 - Document setup in README
 - Use `.env.example` as template
 - Record issues in `experience/`

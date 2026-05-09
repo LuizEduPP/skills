@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Take a screenshot
- * Usage: node screenshot.js --output screenshot.png [--url https://example.com] [--full-page true] [--selector .element] [--max-size 5] [--no-compress]
+ * Usage: node screenshot.js --output screenshot.png [--url <page-url>] [--full-page true] [--selector .element] [--max-size 5] [--no-compress]
  * Supports both CSS and XPath selectors:
  *   - CSS: node screenshot.js --selector ".main-content" --output page.png
  *   - XPath: node screenshot.js --selector "//div[@class='main-content']" --output page.png

@@ -1,20 +1,24 @@
 ---
 name: skill-writer
-description: Guide users through creating Agent Skills for AI assistants. Use when the user wants to create, write, author, or design a new Skill, or needs help with SKILL.md files, frontmatter, or skill structure.
+description: Guide users through creating portable AI skills. Use when the user wants to create, write, author, or redesign a skill, or needs help with SKILL.md files, frontmatter, portability, or skill structure.
 ---
 
 # Skill Writer
 
-This Skill helps you create well-structured Agent Skills for AI assistants that follow best practices and validation requirements.
+This Skill helps you create well-structured AI skills that follow best practices, remain English-first, and stay portable across assistants, IDEs, and apps.
 
-## When to use this Skill
+## Overview
+
+Use this skill to create or refactor SKILL.md files with a portable structure, consistent tone, and reusable examples.
+
+## When to Use This Skill
 
 Use this Skill when:
-- Creating a new Agent Skill
+- Creating a new skill
 - Writing or updating SKILL.md files
 - Designing skill structure and frontmatter
 - Troubleshooting skill discovery issues
-- Converting existing prompts or workflows into Skills
+- Converting existing prompts or workflows into skills
 
 ## Instructions
 
@@ -36,15 +40,17 @@ First, understand what the Skill should do:
 
 Determine where to create the Skill:
 
-**Personal Skills** (`~/.claude/skills/`):
+**Personal Skills** (`<user-skill-root>/skill-name/`):
 - Individual workflows and preferences
 - Experimental Skills
 - Personal productivity tools
 
-**Project Skills** (`.claude/skills/`):
+**Project Skills** (`<workspace-skill-root>/skill-name/`):
 - Team workflows and conventions
 - Project-specific expertise
 - Shared utilities (committed to git)
+
+Choose paths that match the host application. The path examples above are placeholders, not a required directory layout.
 
 ### Step 3: Create Skill structure
 
@@ -52,10 +58,10 @@ Create the directory and files:
 
 ```bash
 # Personal
-mkdir -p ~/.claude/skills/skill-name
+mkdir -p <user-skill-root>/skill-name
 
 # Project
-mkdir -p .claude/skills/skill-name
+mkdir -p <workspace-skill-root>/skill-name
 ```
 
 For multi-file Skills:
@@ -136,6 +142,7 @@ description: For data analysis
 - Mention common user phrases ("analyze", "extract", "generate")
 - List concrete operations (not generic verbs)
 - Add context clues ("Use when...", "For...")
+- Avoid naming a specific IDE or assistant unless that dependency is essential
 
 ### Step 6: Structure the Skill content
 
@@ -146,7 +153,7 @@ Use clear Markdown sections:
 
 Brief overview of what this Skill does.
 
-## Quick start
+## Quick Start
 
 Provide a simple example to get started immediately.
 
@@ -161,7 +168,7 @@ Step-by-step guidance for the AI:
 
 Show concrete usage examples with code or commands.
 
-## Best practices
+## Best Practices
 
 - Key conventions to follow
 - Common pitfalls to avoid
@@ -174,7 +181,7 @@ List any dependencies or prerequisites:
 pip install package-name
 ```
 
-## Advanced usage
+## Advanced Usage
 
 For complex scenarios, see [reference.md](reference.md).
 ```
@@ -218,6 +225,8 @@ Check these requirements:
 - [ ] Concrete examples provided
 - [ ] Edge cases handled
 - [ ] Dependencies listed (if any)
+- [ ] Main flow is portable across hosts
+- [ ] English wording is consistent throughout
 
 ✅ **Testing**:
 - [ ] Description matches user questions
@@ -226,20 +235,20 @@ Check these requirements:
 
 ### Step 9: Test the Skill
 
-1. **Restart your AI assistant** (if running) to load the Skill
+1. **Reload or restart the host application** if it caches skills
 
 2. **Ask relevant questions** that match the description:
    ```
    Can you help me extract text from this PDF?
    ```
 
-3. **Verify activation**: The AI should use the Skill automatically
+3. **Verify activation**: The host should load or expose the skill as expected
 
 4. **Check behavior**: Confirm the AI follows the instructions correctly
 
 ### Step 10: Debug if needed
 
-If the AI doesn't use the Skill:
+If the host does not use the Skill:
 
 1. **Make description more specific**:
    - Add trigger words
@@ -248,8 +257,8 @@ If the AI doesn't use the Skill:
 
 2. **Check file location**:
    ```bash
-   ls ~/.claude/skills/skill-name/SKILL.md
-   ls .claude/skills/skill-name/SKILL.md
+   ls <user-skill-root>/skill-name/SKILL.md
+   ls <workspace-skill-root>/skill-name/SKILL.md
    ```
 
 3. **Validate YAML**:
@@ -257,12 +266,18 @@ If the AI doesn't use the Skill:
    cat SKILL.md | head -n 10
    ```
 
-4. **Run debug mode**:
-   ```bash
-   claude --debug
-   ```
+4. **Use host-specific diagnostics** if available:
+   - Enable the host's verbose or debug mode
+   - Check whether the host requires a restart, reindex, or explicit registration
 
-## Common patterns
+## Portability Checklist
+
+- Keep the primary instructions valid without assuming a specific IDE or assistant
+- Use placeholders for directories, commands, and environment-specific values
+- Move vendor-specific setup into a small compatibility note or reference file
+- Keep examples in English and avoid mixed-language docs inside the skill
+
+## Common Patterns
 
 ### Read-only Skill
 
@@ -319,7 +334,7 @@ Detailed reference: See [reference.md](reference.md)
 4. Review against best practices (see reference.md)
 ```
 
-## Best practices for Skill authors
+## Best Practices for Skill Authors
 
 1. **One Skill, one purpose**: Don't create mega-Skills
 2. **Specific descriptions**: Include trigger words users will say
@@ -330,7 +345,7 @@ Detailed reference: See [reference.md](reference.md)
 7. **Version your Skills**: Document changes in content
 8. **Use progressive disclosure**: Put advanced details in separate files
 
-## Validation checklist
+## Validation Checklist
 
 Before finalizing a Skill, verify:
 

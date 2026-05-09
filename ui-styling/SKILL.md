@@ -9,12 +9,16 @@ version: 1.0.0
 
 Comprehensive skill for creating beautiful, accessible user interfaces combining shadcn/ui components, Tailwind CSS utility styling, and canvas-based visual design systems.
 
-## Reference
+## Overview
+
+Use this skill when you need a practical styling guide for component systems, utility-first CSS, and visually consistent UI implementation.
+
+## Quick Reference
 
 - shadcn/ui: https://ui.shadcn.com/llms.txt
 - Tailwind CSS: https://tailwindcss.com/docs
 
-## When to Use This Skill
+## When to Use
 
 Use when:
 - Building UI with React-based frameworks (Next.js, Vite, Remix, Astro)

@@ -18,9 +18,8 @@ Classes:
 PRODUCTION NOTES:
 - Token estimation uses simplified heuristics (~4 chars/token for English).
   Production systems should use model-specific tokenizers:
-  - OpenAI: tiktoken library
-  - Anthropic: anthropic tokenizer
-  - Local models: HuggingFace tokenizers
+    - Hosted models: the provider's official tokenizer
+    - Local models: HuggingFace or equivalent local tokenizers
 
 - Summarization functions use simple heuristics for demonstration.
   Production systems should use:
@@ -68,7 +67,7 @@ def estimate_token_count(text: str) -> int:
     Uses approximation: ~4 characters per token for English.
 
     WARNING: This is a rough estimate. Actual tokenization varies by:
-    - Model (GPT-5.2, Claude 4.5, Gemini 3 have different tokenizers)
+    - Model family (different providers and model generations tokenize differently)
     - Content type (code typically has higher token density)
     - Language (non-English may have 2-3x higher token/char ratio)
 
